@@ -1,0 +1,738 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sepetim - KırtasiyeMarket</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: white;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .breadcrumb a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+        }
+
+        .breadcrumb a:hover {
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem 0;
+            min-height: 70vh;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+        }
+
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Cart Items */
+        .cart-items {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .cart-header h2 {
+            color: #333;
+            font-size: 1.5rem;
+        }
+
+        .clear-cart {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .clear-cart:hover {
+            background: #ff5252;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none; /* No border for the last item */
+        }
+
+        .cart-item:hover {
+            background: #f8f9fa;
+            margin: 0 -1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+            border-radius: 10px;
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #f0f2f5, #e1e8ed);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-right: 1.5rem;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-brand {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .item-features {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0 1rem;
+        }
+
+        .qty-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: background 0.3s;
+        }
+
+        .qty-btn:hover {
+            background: #5a6fd8;
+        }
+
+        .qty-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .quantity {
+            font-weight: bold;
+            min-width: 40px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+
+        .item-price {
+            text-align: right;
+            min-width: 100px;
+        }
+
+        .current-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff6b6b;
+        }
+
+        .original-price {
+            font-size: 0.9rem;
+            color: #999;
+            text-decoration: line-through;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+            margin-left: 1rem;
+        }
+
+        .remove-item:hover {
+            background: #ffe6e6;
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #333;
+            text-align: center;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding: 0.5rem 0;
+        }
+
+        .summary-row.total {
+            border-top: 2px solid #f0f0f0;
+            padding-top: 1rem;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .discount-section {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1.5rem 0;
+        }
+
+        .coupon-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .coupon-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .apply-coupon {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .apply-coupon:hover {
+            background: #5a6fd8;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+        }
+
+        .continue-shopping {
+            width: 100%;
+            background: transparent;
+            color: #667eea;
+            border: 2px solid #667eea;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            text-decoration: none;
+            display: block;
+            text-align: center;
+        }
+
+        .continue-shopping:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        /* Empty Cart */
+        .empty-cart {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            margin: 2rem 0;
+        }
+
+        .empty-cart-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-cart h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .empty-cart p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .start-shopping {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .start-shopping:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+
+        /* Security Badge */
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .security-badge {
+            background: #f8f9fa;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .cart-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1rem 0;
+            }
+
+            .item-image {2
+                margin-right: 0;
+            }
+
+            .quantity-controls {
+                margin: 0;
+            }
+
+            .item-price {
+                text-align: left;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .cart-header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+
+        /* Animation */
+        @@keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes slideOut {
+            to {
+                opacity: 0;
+                transform: translateX(-100%);
+                height: 0;
+                padding: 0;
+                margin: 0;
+            }
+        }
+
+        .cart-item {
+            animation: slideIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="@Url.Action("Index", "Deneme")" class="logo">📝 KırtasiyeMarket</a>
+                <div class="breadcrumb">
+                    <a href="@Url.Action("Index", "Deneme")">Anasayfa</a>
+                    <span>></span>
+                    <span>Sepetim</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <h1 class="page-title">🛒 Sepetim</h1>
+
+            <div id="cartWithItems" class="cart-container">
+                <div class="cart-items" id="cartItemsContainer">
+                    </div>
+
+                <div class="cart-summary">
+                    <h3 class="summary-title">Sipariş Özeti</h3>
+
+                    <div class="summary-row">
+                        <span>Ürünler Toplamı:</span>
+                        <span id="subtotal">0,00₺</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>İndirim:</span>
+                        <span id="discount" style="color: #4caf50;">0,00₺</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Kargo:</span>
+                        <span id="shippingCost" style="color: #4caf50;">Ücretsiz</span>
+                    </div>
+
+                    <div class="summary-row total">
+                        <span>Toplam:</span>
+                        <span id="total" style="color: #ff6b6b;">0,00₺</span>
+                    </div>
+
+                    <div class="discount-section">
+                        <strong>💰 İndirim Kodu</strong>
+                        <div class="coupon-input">
+                            <input type="text" placeholder="İndirim kodunu girin" id="couponCode">
+                            <button class="apply-coupon" onclick="applyCoupon()">Uygula</button>
+                        </div>
+                    </div>
+
+                    <button class="checkout-btn" onclick="proceedToCheckout()">
+                        🔒 Güvenli Ödeme
+                    </button>
+
+                    <a href="@Url.Action("Index", "Deneme")" class="continue-shopping">← Alışverişe Devam Et</a>
+
+                    <div class="security-badges">
+                        <div class="security-badge">
+                            🔒 SSL Güvenlik
+                        </div>
+                        <div class="security-badge">
+                            💳 Güvenli Ödeme
+                        </div>
+                        <div class="security-badge">
+                            🚚 Hızlı Kargo
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="emptyCart" class="empty-cart" style="display: none;">
+                <div class="empty-cart-icon">🛒</div>
+                <h3>Sepetiniz Boş</h3>
+                <p>Henüz sepetinize ürün eklemediniz. Binlerce kaliteli kırtasiye ürünümüzü keşfedin!</p>
+                <a href="@Url.Action("Index", "Deneme")" class="start-shopping">Alışverişe Başla</a>
+
+                <div style="margin-top: 3rem;">
+                    <h4 style="margin-bottom: 1rem; color: #333;">Popüler Kategoriler</h4>
+                    <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                        <a href="#" style="text-decoration: none; color: #667eea; padding: 0.5rem 1rem; border: 2px solid #667eea; border-radius: 20px; transition: all 0.3s;">✏️ Kalemler</a>
+                        <a href="#" style="text-decoration: none; color: #667eea; padding: 0.5rem 1rem; border: 2px solid #667eea; border-radius: 20px; transition: all 0.3s;">📚 Defterler</a>
+                        <a href="#" style="text-decoration: none; color: #667eea; padding: 0.5rem 1rem; border: 2px solid #667eea; border-radius: 20px; transition: all 0.3s;">🎨 Sanat</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        let cartItems = JSON.parse(localStorage.getItem('kirtasiyeMarketCart')) || {};
+        const cartItemsContainer = document.getElementById('cartItemsContainer');
+        const cartWithItemsSection = document.getElementById('cartWithItems');
+        const emptyCartSection = document.getElementById('emptyCart');
+
+        function renderCartItems() {
+            cartItemsContainer.innerHTML = ''; // Clear existing items
+            let itemCount = 0;
+
+            for (const productId in cartItems) {
+                const item = cartItems[productId];
+                itemCount++;
+
+                const cartItemElement = document.createElement('div');
+                cartItemElement.classList.add('cart-item');
+                cartItemElement.dataset.id = productId;
+                cartItemElement.innerHTML = `
+                    <div class="item-image">📝</div> <div class="item-details">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-brand">${item.brand}</div>
+                        <div class="item-features">${item.features}</div>
+                    </div>
+                    <div class="quantity-controls">
+                        <button class="qty-btn" onclick="decreaseQuantity(${productId})">-</button>
+                        <span class="quantity" id="qty-${productId}">${item.quantity}</span>
+                        <button class="qty-btn" onclick="increaseQuantity(${productId})">+</button>
+                    </div>
+                    <div class="item-price">
+                        <div class="current-price">${(item.price * item.quantity).toFixed(2).replace('.', ',')}₺</div>
+                        <div class="original-price">${(item.originalPrice * item.quantity).toFixed(2).replace('.', ',')}₺</div>
+                    </div>
+                    <button class="remove-item" onclick="removeItem(${productId})">🗑️</button>
+                `;
+                cartItemsContainer.appendChild(cartItemElement);
+            }
+
+            if (itemCount === 0) {
+                showEmptyCart();
+            } else {
+                cartWithItemsSection.style.display = 'grid';
+                emptyCartSection.style.display = 'none';
+                updateCartHeader(itemCount);
+            }
+
+            updateCartTotals();
+        }
+
+        function increaseQuantity(productId) {
+            cartItems[productId].quantity++;
+            localStorage.setItem('kirtasiyeMarketCart', JSON.stringify(cartItems));
+            updateQuantityDisplay(productId);
+            updateCartTotals();
+        }
+
+        function decreaseQuantity(productId) {
+            if (cartItems[productId].quantity > 1) {
+                cartItems[productId].quantity--;
+                localStorage.setItem('kirtasiyeMarketCart', JSON.stringify(cartItems));
+                updateQuantityDisplay(productId);
+                updateCartTotals();
+            }
+        }
+
+        function updateQuantityDisplay(productId) {
+            const quantityElement = document.getElementById(`qty-${productId}`);
+            if (quantityElement) {
+                quantityElement.textContent = cartItems[productId].quantity;
+            }
+            const currentPriceElement = document.querySelector(`[data-id="${productId}"] .current-price`);
+            const originalPriceElement = document.querySelector(`[data-id="${productId}"] .original-price`);
+
+            if (currentPriceElement) {
+                currentPriceElement.textContent = (cartItems[productId].price * cartItems[productId].quantity).toFixed(2).replace('.', ',') + '₺';
+                originalPriceElement.textContent = (cartItems[productId].originalPrice * cartItems[productId].quantity).toFixed(2).replace('.', ',') + '₺';
+            }
+        }
+
+        function removeItem(productId) {
+            if (confirm('Bu ürünü sepetinizden çıkarmak istediğinize emin misiniz?')) {
+                const itemElement = document.querySelector(`[data-id="${productId}"]`);
+                if (itemElement) {
+                    itemElement.style.animation = 'slideOut 0.3s ease-in forwards';
+                    setTimeout(() => {
+                        delete cartItems[productId];
+                        localStorage.setItem('kirtasiyeMarketCart', JSON.stringify(cartItems));
+                        itemElement.remove();
+                        renderCartItems(); // Re-render to update totals and potentially show empty cart
+                    }, 300);
+                }
+            }
+        }
+
+        function clearCart() {
+            if (confirm('Sepetinizi tamamen boşaltmak istediğinize emin misiniz?')) {
+                cartItems = {};
+                localStorage.setItem('kirtasiyeMarketCart', JSON.stringify(cartItems));
+                renderCartItems(); // Re-render to show empty cart
+            }
+        }
+
+        function showEmptyCart() {
+            cartWithItemsSection.style.display = 'none';
+            emptyCartSection.style.display = 'block';
+            updateCartHeader(0); // Update header to show 0 items
+        }
+
+        function updateCartHeader(count) {
+            const headerTitle = document.querySelector('.cart-header h2');
+            if (headerTitle) { // Ensure element exists before trying to update
+                headerTitle.textContent = `Sepetinizdeki Ürünler (${count})`;
+            }
+        }
+
+        function updateCartTotals() {
+            let subtotal = 0;
+            let originalTotal = 0;
+            let discountAmount = 0;
+            let shippingCost = 0; // Assuming free shipping for now, adjust if needed
+
+            Object.values(cartItems).forEach(item => {
+                subtotal += item.price * item.quantity;
+                originalTotal += item.originalPrice * item.quantity;
+            });
+
+            discountAmount = originalTotal - subtotal;
+
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2).replace('.', ',') + '₺';
+            document.getElementById('discount').textContent = `-${discountAmount.toFixed(2).replace('.', ',')}₺`;
+            document.getElementById('shippingCost').textContent = shippingCost === 0 ? 'Ücretsiz' : shippingCost.toFixed(2).replace('.', ',') + '₺';
+            document.getElementById('total').textContent = (subtotal + shippingCost).toFixed(2).replace('.', ',') + '₺';
+        }
+
+        function applyCoupon() {
+            const couponCode = document.getElementById('couponCode').value.trim().toUpperCase();
+
+            if (couponCode === 'KIRTASIYE10') {
+                alert('🎉 Tebrikler! %10 indirim kuponunuz başarıyla uygulandı! (Hesaplama şimdilik yapılmadı)');
+                document.getElementById('couponCode').value = '';
+                // In a real scenario, you'd apply the discount to `cartItems` or `subtotal` and call updateCartTotals()
+            } else if (couponCode === '') {
+                alert('⚠️ Lütfen bir indirim kodu girin.');
+            } else {
+                alert('❌ Geçersiz indirim kodu. Lütfen kontrol edip tekrar deneyin.');
+            }
+        }
+
+        function proceedToCheckout() {
+            if (Object.keys(cartItems).length === 0) {
+                alert('Sepetiniz boş! Önce ürün ekleyin.');
+                return;
+            }
+            alert('🛒 Ödeme sayfasına yönlendiriliyorsunuz...');
+            // Redirect to a real checkout page here
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderCartItems(); // Initial rendering of cart items
+        });
+    </script>
+</body>
+</html>
