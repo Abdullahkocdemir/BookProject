@@ -8,178 +8,291 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kitap Dünyası - Oku, Paylaş, Keşfet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #ec4899;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --glow: 0 0 50px rgba(99, 102, 241, 0.5);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
             min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.3) 0%, transparent 50%);
+            animation: floating 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @@keyframes floating {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            50% {
+                transform: scale(1.1) rotate(180deg);
+            }
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 2rem;
         }
 
         /* Header */
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
             z-index: 1000;
+            backdrop-filter: blur(20px);
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
         }
 
         nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 1rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #667eea;
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+            .logo i {
+                color: var(--primary);
+                animation: pulse 2s infinite;
+            }
+
+        @@keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
             gap: 2rem;
-            flex-grow: 1; /* Allows nav-menu to take available space */
-            justify-content: center; /* Center the nav items */
+            align-items: center;
         }
 
             .nav-menu a {
+                color: rgba(255, 255, 255, 0.8);
                 text-decoration: none;
-                color: #333;
                 font-weight: 500;
-                transition: color 0.3s ease;
+                padding: 0.5rem 1rem;
+                border-radius: 50px;
+                transition: all 0.3s ease;
                 position: relative;
-                padding: 5px 0; /* Add padding for a better clickable area */
+                overflow: hidden;
             }
 
-                .nav-menu a:hover {
-                    color: #667eea;
-                }
-
-                .nav-menu a::after {
+                .nav-menu a::before {
                     content: '';
                     position: absolute;
-                    bottom: -5px;
-                    left: 0;
-                    width: 0;
-                    height: 2px;
-                    background: #667eea;
-                    transition: width 0.3s ease;
+                    top: 0;
+                    left: -100%;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+                    transition: left 0.5s;
                 }
 
-                .nav-menu a:hover::after {
-                    width: 100%;
+                .nav-menu a:hover::before {
+                    left: 100%;
+                }
+
+                .nav-menu a:hover {
+                    color: white;
+                    background: rgba(99, 102, 241, 0.2);
+                    box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
                 }
 
         .header-actions {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            margin-left: auto; /* Push actions to the far right */
+            gap: 1rem;
         }
 
-        .auth-buttons {
-            display: flex;
-            gap: 0.8rem;
+        .auth-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-            .auth-buttons .btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-                border-radius: 20px;
-                text-decoration: none;
-            }
-
-        .btn-auth-primary {
-            background: #667eea;
+        .auth-btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
+            box-shadow: var(--shadow);
         }
 
-            .btn-auth-primary:hover {
-                background: #5a67d8;
+            .auth-btn-primary:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 35px 60px -12px rgba(99, 102, 241, 0.4);
             }
 
-        .btn-auth-secondary {
-            background: transparent;
-            border: 1px solid #667eea;
-            color: #667eea;
+        .auth-btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-            .btn-auth-secondary:hover {
-                background: #e0e6ff;
+            .auth-btn-secondary:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
             }
 
-        .cart-icon-container {
+        .cart-container {
             position: relative;
             cursor: pointer;
-            color: #333;
-            transition: color 0.3s ease;
+            padding: 0.75rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
-            .cart-icon-container:hover {
-                color: #667eea;
+            .cart-container:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: scale(1.1);
             }
 
         .cart-icon {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
+            color: white;
         }
 
         .cart-count {
             position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #e53e3e;
+            top: -5px;
+            right: -5px;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
             color: white;
             border-radius: 50%;
-            padding: 0.2em 0.5em;
-            font-size: 0.75rem;
-            font-weight: bold;
+            width: 24px;
+            height: 24px;
             display: flex;
-            justify-content: center;
             align-items: center;
-            min-width: 22px;
-            height: 22px;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+            animation: bounce 0.5s ease;
         }
 
+        @@keyframes bounce {
+            0%, 100% {
+                transform: scale(1);
+            }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9), rgba(118, 75, 162, 0.9));
-            color: white;
-            padding: 4rem 0;
+            50% {
+                transform: scale(1.3);
+            }
+        }
+
+        /* Main Content Styling */
+        main {
+            margin-top: 100px; /* Adjust based on fixed header height */
+            padding: 0; /* Removed overall padding as sections have it */
+        }
+
+        .hero-section {
             text-align: center;
-            margin-bottom: 3rem;
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
         }
 
-            .hero h1 {
-                font-size: 3rem;
-                margin-bottom: 1rem;
-                animation: slideInUp 1s ease;
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, white, rgba(255, 255, 255, 0.8));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInDown 1s ease;
+        }
+
+        @@keyframes slideInDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
             }
 
-            .hero p {
-                font-size: 1.2rem;
-                margin-bottom: 2rem;
-                animation: slideInUp 1s ease 0.2s both;
+            to {
+                transform: translateY(0);
+                opacity: 1;
             }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            animation: slideInUp 1s ease 0.2s both;
+        }
+
+        @@keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
         .cta-buttons {
             display: flex;
@@ -222,219 +335,294 @@
                 transform: translateY(-2px);
             }
 
-        /* Standalone Search Bar Section */
-        .standalone-search-section {
-            background: #f8f9fa;
-            padding: 2rem 0;
-            text-align: center;
+        /* Search Bar */
+        .search-container {
+            display: flex;
+            justify-content: center;
             margin-bottom: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            margin-left: 20px;
-            margin-right: 20px;
+            animation: slideInUp 1s ease 0.4s both;
+            padding: 0 2rem; /* Ensure it respects container padding */
         }
 
-        .standalone-search-bar {
-            display: inline-flex; /* Use inline-flex to center the bar itself */
+        .search-bar {
+            display: flex;
             align-items: center;
-            background: white;
-            border-radius: 30px;
-            padding: 0.7rem 1.5rem;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            width: 80%; /* Adjust width as needed */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 60px;
+            padding: 1rem 2rem;
+            width: 100%;
             max-width: 600px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
         }
 
-            .standalone-search-bar:focus-within {
-                border-color: #667eea;
-                box-shadow: 0 0 15px rgba(102, 126, 234, 0.4);
+            .search-bar:focus-within {
+                background: rgba(255, 255, 255, 0.15);
+                box-shadow: var(--glow);
+                transform: scale(1.02);
             }
 
-            .standalone-search-bar input {
-                border: none;
+            .search-bar input {
                 background: none;
-                outline: none;
-                padding: 0.5rem;
-                flex-grow: 1;
-                font-size: 1rem;
-            }
-
-            .standalone-search-bar button {
-                background: #667eea;
                 border: none;
+                outline: none;
                 color: white;
-                padding: 0.6rem 1.2rem;
-                border-radius: 25px;
-                cursor: pointer;
-                transition: background 0.3s ease;
-                font-size: 1rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                font-size: 1.1rem;
+                width: 100%;
+                padding: 0.5rem;
             }
 
-                .standalone-search-bar button:hover {
-                    background: #5a67d8;
+                .search-bar input::placeholder {
+                    color: rgba(255, 255, 255, 0.6);
                 }
 
-
-        /* Main Content */
-        main {
-            background: white;
-            margin: 0 20px;
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+        .search-btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
         }
 
-        /* Categories */
-        .categories {
-            padding: 3rem 2rem;
-            background: #f8f9fa;
-        }
+            .search-btn:hover {
+                transform: scale(1.05);
+                box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+            }
 
+        /* General Section Styling */
         .section-title {
             text-align: center;
             font-size: 2.5rem;
             margin-bottom: 3rem;
-            color: #333;
+            color: white;
+            font-weight: 800;
+            background: linear-gradient(135deg, white, rgba(255, 255, 255, 0.8));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: slideInDown 1s ease;
         }
 
+        .dynamic-section {
+            padding: 3rem 2rem;
+            background: rgba(255, 255, 255, 0.05); /* Lighter background for sections */
+            border-radius: 25px;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Category Grid */
         .category-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
+            padding: 0; /* Removed padding here, use section padding */
         }
 
         .category-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 2rem;
             border-radius: 15px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
             cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
         }
 
             .category-card:hover {
                 transform: translateY(-10px);
                 box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+                background: rgba(255, 255, 255, 0.15);
             }
 
         .category-icon {
             font-size: 3rem;
             margin-bottom: 1rem;
+            color: var(--accent); /* Changed icon color */
         }
 
         .category-card h3 {
             font-size: 1.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            color: #333;
+            color: white;
         }
 
         .category-card p {
-            color: #666;
+            color: rgba(255, 255, 255, 0.8);
             margin-bottom: 1.5rem;
         }
 
-        /* Featured Books */
-        .featured-books {
-            padding: 3rem 2rem;
-        }
-
+        /* Books Grid */
         .books-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 2rem;
         }
 
         .book-card {
-            background: white;
-            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
         }
 
+            .book-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(236, 72, 153, 0.1));
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                pointer-events: none;
+            }
+
+            .book-card:hover::before {
+                opacity: 1;
+            }
+
             .book-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+                transform: translateY(-20px) scale(1.02);
+                box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
             }
 
         .book-image {
-            height: 300px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
             font-size: 1.2rem;
-            font-weight: bold;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .book-image::before {
+                content: '';
+                position: absolute;
+                top: -50%;
+                left: -50%;
+                width: 200%;
+                height: 200%;
+                background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+                transform: rotate(45deg);
+                animation: shimmer 3s infinite;
+            }
+
+        @@keyframes shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
         }
 
         .book-content {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .book-title {
             font-size: 1.3rem;
-            font-weight: bold;
+            font-weight: 700;
+            color: white;
             margin-bottom: 0.5rem;
-            color: #333;
         }
 
         .book-author {
-            color: #666;
+            color: rgba(255, 255, 255, 0.7);
             margin-bottom: 1rem;
+            font-size: 1rem;
         }
 
         .book-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+            margin-bottom: 1.5rem;
         }
 
         .book-actions {
             display: flex;
-            gap: 0.5rem;
+            gap: 1rem;
         }
 
-        .btn-small {
-            padding: 0.5rem 1rem;
-            font-size: 0.9rem;
-            border-radius: 20px;
+        .btn-book-action {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
             border: none;
             cursor: pointer;
+            font-weight: 600;
             transition: all 0.3s ease;
             flex: 1;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-buy {
-            background: #667eea;
+        .btn-primary-book-action {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
         }
 
-            .btn-buy:hover {
-                background: #5a67d8;
+            .btn-primary-book-action:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
             }
 
-        .btn-read {
-            background: #e2e8f0;
-            color: #333;
+        .btn-secondary-book-action {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-            .btn-read:hover {
-                background: #cbd5e0;
+            .btn-secondary-book-action:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+            }
+
+        /* No Results (kept for potential future dynamic use, but hidden by default) */
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.2rem;
+            display: none; /* Hide by default as no dynamic books */
+        }
+
+            .no-results i {
+                font-size: 4rem;
+                margin-bottom: 1rem;
+                color: rgba(255, 255, 255, 0.3);
             }
 
         /* Stats Section */
-        .stats {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+        .stats-section {
+            background: rgba(255, 255, 255, 0.05); /* Lighter background for sections */
+            border-radius: 25px;
+            margin: 4rem auto;
             padding: 3rem 2rem;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .stats-grid {
@@ -445,12 +633,14 @@
 
         .stat-item {
             padding: 1rem;
+            color: white;
         }
 
         .stat-number {
             font-size: 3rem;
-            font-weight: bold;
+            font-weight: 800;
             margin-bottom: 0.5rem;
+            color: var(--accent);
         }
 
         .stat-label {
@@ -459,33 +649,41 @@
         }
 
         /* Testimonials Section */
-        .testimonials {
-            padding: 3rem 2rem;
-            background: #f8f9fa;
+        .testimonials-section {
+            padding: 3rem 0;
+            background: rgba(255, 255, 255, 0.05); /* Lighter background for sections */
+            border-radius: 25px;
+            margin-bottom: 4rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .testimonial-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            padding: 0 2rem;
         }
 
         .testimonial-card {
-            background: white;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             padding: 2rem;
             border-radius: 15px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
             position: relative;
             transition: transform 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
         }
 
             .testimonial-card:hover {
                 transform: translateY(-5px);
+                background: rgba(255, 255, 255, 0.15);
             }
 
         .testimonial-text {
             font-style: italic;
-            color: #555;
+            color: rgba(255, 255, 255, 0.9);
             margin-bottom: 1.5rem;
             position: relative;
             padding-left: 20px;
@@ -494,7 +692,7 @@
             .testimonial-text::before {
                 content: "“";
                 font-size: 4rem;
-                color: #667eea;
+                color: var(--primary);
                 position: absolute;
                 left: 0;
                 top: -10px;
@@ -502,39 +700,37 @@
             }
 
         .testimonial-author {
-            font-weight: bold;
-            color: #333;
+            font-weight: 600;
+            color: var(--accent);
             margin-top: 1rem;
+            text-align: right;
         }
 
         .testimonial-rating {
             color: #ffc107; /* Gold star color */
             margin-bottom: 0.5rem;
+            text-align: left;
         }
 
         /* Quote of the Day Section */
-        .quote-of-the-day {
-            background: #e2e8f0; /* Light gray background */
+        .quote-of-the-day-section {
+            background: rgba(255, 255, 255, 0.05);
             padding: 3rem 2rem;
             text-align: center;
-            margin-top: 3rem;
-            border-radius: 20px;
-            margin-left: 20px;
-            margin-right: 20px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
-            border: 1px solid #cbd5e0;
+            margin-top: 4rem;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-            .quote-of-the-day h2 {
+            .quote-of-the-day-section h2 {
                 font-size: 2.2rem;
                 margin-bottom: 2rem;
-                color: #4a5568;
+                color: white;
                 position: relative;
                 display: inline-block;
             }
 
-                .quote-of-the-day h2::after {
+                .quote-of-the-day-section h2::after {
                     content: '';
                     position: absolute;
                     left: 50%;
@@ -542,54 +738,58 @@
                     bottom: -10px;
                     width: 80px;
                     height: 4px;
-                    background: #667eea;
+                    background: var(--primary);
                     border-radius: 2px;
                 }
 
         .quote-content {
             font-size: 1.6rem;
             font-style: italic;
-            color: #333;
+            color: white;
             margin-bottom: 1.5rem;
             position: relative;
             padding: 1rem;
-            border-left: 5px solid #764ba2;
+            border-left: 5px solid var(--secondary);
             /* Animation applied by JS class */
         }
 
         .quote-author {
             font-size: 1.1rem;
             font-weight: 600;
-            color: #5a67d8;
+            color: var(--primary);
             text-align: right;
             padding-right: 1rem;
         }
 
         /* Call to Action Section */
-        .call-to-action {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        .call-to-action-section {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
             color: white;
             padding: 4rem 2rem;
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 4rem;
+            border-radius: 25px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-            .call-to-action h2 {
+            .call-to-action-section h2 {
                 font-size: 2.8rem;
                 margin-bottom: 1.5rem;
             }
 
-            .call-to-action p {
+            .call-to-action-section p {
                 font-size: 1.3rem;
                 margin-bottom: 2.5rem;
                 max-width: 800px;
                 margin-left: auto;
                 margin-right: auto;
+                color: rgba(255, 255, 255, 0.9);
             }
 
         /* Footer */
         footer {
-            background: #2d3748;
+            background: var(--dark);
             color: white;
             padding: 3rem 2rem 1rem;
             margin-top: 3rem;
@@ -604,13 +804,13 @@
 
         .footer-section h3 {
             margin-bottom: 1rem;
-            color: #667eea;
+            color: var(--primary);
         }
 
         .footer-section p {
             font-size: 0.95rem;
             line-height: 1.8;
-            color: #a0aec0;
+            color: rgba(255, 255, 255, 0.7);
         }
 
         .footer-section ul {
@@ -622,7 +822,7 @@
             }
 
                 .footer-section ul li a {
-                    color: #a0aec0;
+                    color: rgba(255, 255, 255, 0.7);
                     text-decoration: none;
                     transition: color 0.3s ease;
                 }
@@ -644,38 +844,15 @@
             }
 
                 .social-links a:hover {
-                    color: #667eea;
+                    color: var(--primary);
                 }
 
         .footer-bottom {
             text-align: center;
             padding-top: 2rem;
-            border-top: 1px solid #4a5568;
-            color: #a0aec0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
-        }
-
-        /* Animations */
-        @@keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @@keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
         }
 
         /* Responsive */
@@ -688,7 +865,7 @@
                 gap: 0.8rem;
             }
 
-            .auth-buttons .btn {
+            .auth-btn {
                 padding: 0.5rem 1rem;
                 font-size: 0.85rem;
             }
@@ -697,8 +874,8 @@
                 font-size: 1.6rem;
             }
 
-            .standalone-search-bar {
-                width: 90%;
+            .hero-title {
+                font-size: 3rem;
             }
         }
 
@@ -726,285 +903,320 @@
                 gap: 1rem;
             }
 
-            .auth-buttons {
-                order: 1; /* Keep auth buttons first */
+            .hero-title {
+                font-size: 2.5rem;
             }
 
-            .cart-icon-container {
-                order: 2; /* Keep cart icon second */
+            .hero-subtitle {
+                font-size: 1.2rem;
             }
 
-            .standalone-search-section {
-                padding: 1.5rem 0;
-                margin-bottom: 2rem;
-            }
-
-            .standalone-search-bar {
-                width: 95%; /* Make it almost full width on small screens */
-                padding: 0.5rem 1rem;
-            }
-
-                .standalone-search-bar input {
-                    font-size: 0.9rem;
-                }
-
-                .standalone-search-bar button {
-                    padding: 0.5rem 1rem;
-                    font-size: 0.9rem;
-                }
-
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
+            .search-bar {
+                padding: 0.75rem 1rem;
             }
 
             .section-title {
                 font-size: 2rem;
             }
-
-            .quote-of-the-day h2 {
+            .quote-of-the-day-section h2 {
                 font-size: 1.8rem;
             }
-
             .quote-content {
                 font-size: 1.2rem;
             }
+
+            .category-grid, .books-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+        }
+
+        @@media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            main {
+                padding: 0; /* Remove main padding for smaller screens as sections have their own */
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .search-bar {
+                padding: 0.75rem 1rem;
+            }
+        }
+
+        /* Animations for sections */
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* For quote animation */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+        }
+
+        .fade-in-quote {
+            animation: fadeIn 1s forwards;
         }
     </style>
 </head>
 <body>
     <header>
         <nav class="container">
-            <a href="#" class="logo">📚 Kitap Dünyası</a>
+            <a href="#" class="logo">
+                <i class="fas fa-book-open"></i>
+                Kitap Dünyası
+            </a>
+
             <ul class="nav-menu">
                 <li><a href="#ana-sayfa">Ana Sayfa</a></li>
-                <li><a href="#kategoriler">Kategoriler</a></li>
+                <li><a href="#kategoriler-section">Kategoriler</a></li>
                 <li><a href="#kitaplar">Kitaplar</a></li>
-                <li><a href="#okur-yorumlari">Okur Yorumları</a></li>
-                <li><a href="#gunun-alintisi">Günün Alıntısı</a></li>
+                <li><a href="#okur-yorumlari">Yorumlar</a></li>
                 <li><a href="#hakkimizda">Hakkımızda</a></li>
             </ul>
+
             <div class="header-actions">
-                <div class="auth-buttons">
-                    <a href="#giris-yap" class="btn btn-auth-secondary">Giriş Yap</a>
-                    <a href="#kayit-ol" class="btn btn-auth-primary">Kayıt Ol</a>
-                </div>
-                <a href="/Home/Sepetim/" class="cart-icon-container" aria-label="Sepetim">
+                <a href="#giris" class="auth-btn auth-btn-secondary">Giriş Yap</a>
+                <a href="#kayit" class="auth-btn auth-btn-primary">Kayıt Ol</a>
+                <div class="cart-container" id="cart-container">
                     <i class="fas fa-shopping-cart cart-icon"></i>
                     <span class="cart-count" id="cart-item-count">0</span>
-                </a>
+                </div>
             </div>
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="container">
-            <h1>Kitap Dünyasına Hoş Geldiniz</h1>
-            <p>Binlerce kitap arasından seç, oku, paylaş ve yeni dünyalar keşfet.</p>
+    <main>
+        <section class="hero-section">
+            <h1 class="hero-title">Kitap Dünyasına Hoş Geldiniz</h1>
+            <p class="hero-subtitle">Binlerce kitap arasından favorilerinizi keşfedin</p>
             <div class="cta-buttons">
                 <a href="#kitaplar" class="btn btn-primary">Kitapları Keşfet</a>
                 <a href="#paylas" class="btn btn-secondary">Kitap Paylaş</a>
             </div>
+        </section>
+
+        <div class="search-container">
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Kitap veya yazar ara...">
+                <button class="search-btn" id="search-btn">
+                    <i class="fas fa-search"></i> Ara
+                </button>
+            </div>
         </div>
-    </section>
 
-    <section class="standalone-search-section">
-        <div class="container">
-            <div class="standalone-search-bar">
-                <input type="text" id="main-search-input" placeholder="Aradığınız kitabı, yazarı veya yayınevini yazın...">
-                <button type="submit" id="main-search-button">🔍 Ara</button>
+        <section id="kategoriler-section" class="dynamic-section container">
+            <h2 class="section-title">Popüler Kategoriler</h2>
+            <div class="category-grid">
+                <div class="category-card" data-category="roman">
+                    <div class="category-icon">📖</div>
+                    <h3>Roman</h3>
+                    <p>Edebiyatın büyülü dünyasında kaybolun.</p>
+                </div>
+                <div class="category-card" data-category="bilim">
+                    <div class="category-icon">🔬</div>
+                    <h3>Bilim</h3>
+                    <p>Bilimin sırlarını çözmeye başlayın.</p>
+                </div>
+                <div class="category-card" data-category="sanat">
+                    <div class="category-icon">🎨</div>
+                    <h3>Sanat</h3>
+                    <p>Yaratıcılığınızı geliştirin.</p>
+                </div>
+                <div class="category-card" data-category="is-kariyer">
+                    <div class="category-icon">💼</div>
+                    <h3>İş & Kariyer</h3>
+                    <p>Profesyonel gelişiminizi destekleyin.</p>
+                </div>
+                <div class="category-card" data-category="tarih">
+                    <div class="category-icon">🏛️</div>
+                    <h3>Tarih</h3>
+                    <p>Geçmişin izlerini sürün.</p>
+                </div>
+                <div class="category-card" data-category="cocuk">
+                    <div class="category-icon">👶</div>
+                    <h3>Çocuk Kitapları</h3>
+                    <p>Minik okurlar için eğlenceli dünyalar.</p>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <main>
-        <section id="kategoriler" class="categories">
-            <div class="container">
-                <h2 class="section-title">Kategoriler</h2>
-                <div class="category-grid">
-                    <div class="category-card">
-                        <div class="category-icon">📖</div>
-                        <h3>Roman</h3>
-                        <p>Edebiyatın büyülü dünyasında kaybolun.</p>
-                        <a href="#" class="btn btn-primary">Keşfet</a>
+        <section id="kitaplar" class="dynamic-section container">
+            <h2 class="section-title">Öne Çıkan Kitaplar</h2>
+            <div class="books-grid">
+                <div class="book-card">
+                    <div class="book-image">Suç ve Ceza</div>
+                    <div class="book-content">
+                        <h3 class="book-title">Suç ve Ceza</h3>
+                        <p class="book-author">Fyodor Dostoyevski</p>
+                        <div class="book-price">₺35.99</div>
+                        <div class="book-actions">
+                            <button class="btn-book-action btn-primary-book-action">
+                                <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                            </button>
+                            <button class="btn-book-action btn-secondary-book-action">
+                                <i class="fas fa-book-open"></i> Oku
+                            </button>
+                        </div>
                     </div>
-                    <div class="category-card">
-                        <div class="category-icon">🔬</div>
-                        <h3>Bilim</h3>
-                        <p>Bilimin sırlarını çözmeye başlayın.</p>
-                        <a href="#" class="btn btn-primary">Keşfet</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">1984</div>
+                    <div class="book-content">
+                        <h3 class="book-title">1984</h3>
+                        <p class="book-author">George Orwell</p>
+                        <div class="book-price">₺29.99</div>
+                        <div class="book-actions">
+                            <button class="btn-book-action btn-primary-book-action">
+                                <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                            </button>
+                            <button class="btn-book-action btn-secondary-book-action">
+                                <i class="fas fa-book-open"></i> Oku
+                            </button>
+                        </div>
                     </div>
-                    <div class="category-card">
-                        <div class="category-icon">🎨</div>
-                        <h3>Sanat</h3>
-                        <p>Yaratıcılığınızı geliştirin.</p>
-                        <a href="#" class="btn btn-primary">Keşfet</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">Simyacı</div>
+                    <div class="book-content">
+                        <h3 class="book-title">Simyacı</h3>
+                        <p class="book-author">Paulo Coelho</p>
+                        <div class="book-price">₺24.99</div>
+                        <div class="book-actions">
+                            <button class="btn-book-action btn-primary-book-action">
+                                <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                            </button>
+                            <button class="btn-book-action btn-secondary-book-action">
+                                <i class="fas fa-book-open"></i> Oku
+                            </button>
+                        </div>
                     </div>
-                    <div class="category-card">
-                        <div class="category-icon">💼</div>
-                        <h3>İş & Kariyer</h3>
-                        <p>Profesyonel gelişiminizi destekleyin.</p>
-                        <a href="#" class="btn btn-primary">Keşfet</a>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">Sapiens</div>
+                    <div class="book-content">
+                        <h3 class="book-title">Sapiens</h3>
+                        <p class="book-author">Yuval Noah Harari</p>
+                        <div class="book-price">₺42.99</div>
+                        <div class="book-actions">
+                            <button class="btn-book-action btn-primary-book-action">
+                                <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                            </button>
+                            <button class="btn-book-action btn-secondary-book-action">
+                                <i class="fas fa-book-open"></i> Oku
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">Kürk Mantolu Madonna</div>
+                    <div class="book-content">
+                        <h3 class="book-title">Kürk Mantolu Madonna</h3>
+                        <p class="book-author">Sabahattin Ali</p>
+                        <div class="book-price">₺19.99</div>
+                        <div class="book-actions">
+                            <button class="btn-book-action btn-primary-book-action">
+                                <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                            </button>
+                            <button class="btn-book-action btn-secondary-book-action">
+                                <i class="fas fa-book-open"></i> Oku
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="book-card">
+                    <div class="book-image">İnsan Nasıl Yaşar</div>
+                    <div class="book-content">
+                        <h3 class="book-title">İnsan Nasıl Yaşar</h3>
+                        <p class="book-author">Lev Tolstoy</p>
+                        <div class="book-price">₺27.99</div>
+                        <div class="book-actions">
+                            <button class="btn-book-action btn-primary-book-action">
+                                <i class="fas fa-shopping-cart"></i> Sepete Ekle
+                            </button>
+                            <button class="btn-book-action btn-secondary-book-action">
+                                <i class="fas fa-book-open"></i> Oku
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="kitaplar" class="featured-books">
-            <div class="container">
-                <h2 class="section-title">Öne Çıkan Kitaplar</h2>
-                <div class="books-grid">
-                    <div class="book-card">
-                        <div class="book-image">Suç ve Ceza</div>
-                        <div class="book-content">
-                            <div class="book-title">Suç ve Ceza</div>
-                            <div class="book-author">Fyodor Dostoyevski</div>
-                            <div class="book-price">₺35.99</div>
-                            <div class="book-actions">
-                                <button class="btn-small btn-buy" data-book-id="1" data-book-name="Suç ve Ceza" data-book-price="35.99">Sepete Ekle</button>
-                                <button class="btn-small btn-read">Oku</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="book-card">
-                        <div class="book-image">1984</div>
-                        <div class="book-content">
-                            <div class="book-title">1984</div>
-                            <div class="book-author">George Orwell</div>
-                            <div class="book-price">₺29.99</div>
-                            <div class="book-actions">
-                                <button class="btn-small btn-buy" data-book-id="2" data-book-name="1984" data-book-price="29.99">Sepete Ekle</button>
-                                <button class="btn-small btn-read">Oku</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="book-card">
-                        <div class="book-image">Simyacı</div>
-                        <div class="book-content">
-                            <div class="book-title">Simyacı</div>
-                            <div class="book-author">Paulo Coelho</div>
-                            <div class="book-price">₺24.99</div>
-                            <div class="book-actions">
-                                <button class="btn-small btn-buy" data-book-id="3" data-book-name="Simyacı" data-book-price="24.99">Sepete Ekle</button>
-                                <button class="btn-small btn-read">Oku</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="book-card">
-                        <div class="book-image">Sapiens</div>
-                        <div class="book-content">
-                            <div class="book-title">Sapiens</div>
-                            <div class="book-author">Yuval Noah Harari</div>
-                            <div class="book-price">₺42.99</div>
-                            <div class="book-actions">
-                                <button class="btn-small btn-buy" data-book-id="4" data-book-name="Sapiens" data-book-price="42.99">Sepete Ekle</button>
-                                <button class="btn-small btn-read">Oku</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="book-card">
-                        <div class="book-image">Kürk Mantolu Madonna</div>
-                        <div class="book-content">
-                            <div class="book-title">Kürk Mantolu Madonna</div>
-                            <div class="book-author">Sabahattin Ali</div>
-                            <div class="book-price">₺19.99</div>
-                            <div class="book-actions">
-                                <button class="btn-small btn-buy" data-book-id="5" data-book-name="Kürk Mantolu Madonna" data-book-price="19.99">Sepete Ekle</button>
-                                <button class="btn-small btn-read">Oku</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="book-card">
-                        <div class="book-image">İnsan Nasıl Yaşar</div>
-                        <div class="book-content">
-                            <div class="book-title">İnsan Nasıl Yaşar</div>
-                            <div class="book-author">Lev Tolstoy</div>
-                            <div class="book-price">₺27.99</div>
-                            <div class="book-actions">
-                                <button class="btn-small btn-buy" data-book-id="6" data-book-name="İnsan Nasıl Yaşar" data-book-price="27.99">Sepete Ekle</button>
-                                <button class="btn-small btn-read">Oku</button>
-                            </div>
-                        </div>
-                    </div>
+        <section class="stats-section container">
+            <h2 class="section-title">Platformumuz Rakamlarla</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">50,000+</div>
+                    <div class="stat-label">Kitap</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100,000+</div>
+                    <div class="stat-label">Aktif Kullanıcı</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1M+</div>
+                    <div class="stat-label">Okunan Sayfa</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">25,000+</div>
+                    <div class="stat-label">Paylaşılan Kitap</div>
                 </div>
             </div>
         </section>
 
-        <section class="stats">
-            <div class="container">
-                <h2 class="section-title">Platformumuz Rakamlarla</h2>
-                <div class="stats-grid">
-                    <div class="stat-item">
-                        <div class="stat-number">50,000+</div>
-                        <div class="stat-label">Kitap</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">100,000+</div>
-                        <div class="stat-label">Aktif Kullanıcı</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">1M+</div>
-                        <div class="stat-label">Okunan Sayfa</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">25,000+</div>
-                        <div class="stat-label">Paylaşılan Kitap</div>
-                    </div>
+        <section id="okur-yorumlari" class="testimonials-section container">
+            <h2 class="section-title">Okurlarımız Ne Diyor?</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Kitap Dünyası harika bir platform! Aradığım her kitabı kolayca buldum ve yeni yazarlar keşfettim. Okuma deneyimim çok daha zenginleşti."</p>
+                    <div class="testimonial-author">- Ayşe Yılmaz</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Kütüphaneme eklemek istediğim kitapları buradan takip ediyorum. Hem satın alma hem de okuma seçenekleri çok pratik."</p>
+                    <div class="testimonial-author">- Can Demir</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★☆</div>
+                    <p class="testimonial-text">"Topluluk özelliği sayesinde aynı zevklere sahip insanlarla tanışmak harika. Kitap tartışmaları çok keyifli geçiyor."</p>
+                    <div class="testimonial-author">- Zeynep Kaya</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">★★★★★</div>
+                    <p class="testimonial-text">"Mobil uygulamanın da olması süper. Her yerde, her an kitaplarıma ulaşabiliyorum. Gerçekten de bir kitap kurdunun ihtiyacı olan her şey burada!"</p>
+                    <div class="testimonial-author">- Emre Akın</div>
                 </div>
             </div>
         </section>
 
-        <section id="okur-yorumlari" class="testimonials">
-            <div class="container">
-                <h2 class="section-title">Okurlarımız Ne Diyor?</h2>
-                <div class="testimonial-grid">
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">★★★★★</div>
-                        <p class="testimonial-text">"Kitap Dünyası harika bir platform! Aradığım her kitabı kolayca buldum ve yeni yazarlar keşfettim. Okuma deneyimim çok daha zenginleşti."</p>
-                        <div class="testimonial-author">- Ayşe Yılmaz</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">★★★★★</div>
-                        <p class="testimonial-text">"Kütüphaneme eklemek istediğim kitapları buradan takip ediyorum. Hem satın alma hem de okuma seçenekleri çok pratik."</p>
-                        <div class="testimonial-author">- Can Demir</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">★★★★☆</div>
-                        <p class="testimonial-text">"Topluluk özelliği sayesinde aynı zevklere sahip insanlarla tanışmak harika. Kitap tartışmaları çok keyifli geçiyor."</p>
-                        <div class="testimonial-author">- Zeynep Kaya</div>
-                    </div>
-                    <div class="testimonial-card">
-                        <div class="testimonial-rating">★★★★★</div>
-                        <p class="testimonial-text">"Mobil uygulamanın da olması süper. Her yerde, her an kitaplarıma ulaşabiliyorum. Gerçekten de bir kitap kurdunun ihtiyacı olan her şey burada!"</p>
-                        <div class="testimonial-author">- Emre Akın</div>
-                    </div>
-                </div>
+        <section id="gunun-alintisi" class="quote-of-the-day-section container">
+            <h2 class="section-title">Günün İlham Veren Satırları</h2>
+            <div class="quote-display">
+                <p class="quote-content" id="daily-quote">
+                    "Okumak, bilginin en derin kuyularından kana kana içmek gibidir. Her yeni sayfa, yeni bir dünyaya açılan kapıdır."
+                </p>
+                <div class="quote-author" id="quote-author">- Mevlana</div>
             </div>
+            <button class="btn-book-action btn-secondary-book-action" id="new-quote-btn" style="margin-top: 2rem;">Yeni Bir Alıntı Göster</button>
         </section>
 
-        <section id="gunun-alintisi" class="quote-of-the-day">
-            <div class="container">
-                <h2 class="section-title">Günün İlham Veren Satırları</h2>
-                <div class="quote-display">
-                    <p class="quote-content" id="daily-quote">
-                        "Okumak, bilginin en derin kuyularından kana kana içmek gibidir. Her yeni sayfa, yeni bir dünyaya açılan kapıdır."
-                    </p>
-                    <div class="quote-author" id="quote-author">- Mevlana</div>
-                </div>
-                <button class="btn btn-secondary" id="new-quote-btn" style="margin-top: 2rem;">Yeni Bir Alıntı Göster</button>
-            </div>
-        </section>
-
-        <section class="call-to-action">
-            <div class="container">
-                <h2>Siz de Kitap Dünyası'na Katılın!</h2>
-                <p>Okuma serüveninizi bir üst seviyeye taşıyın. Binlerce kitaba erişin, kendi yorumlarınızı paylaşın ve yeni okuma arkadaşları edinin.</p>
-                <a href="#kayit-ol" class="btn btn-primary">Hemen Ücretsiz Katıl</a>
-            </div>
+        <section class="call-to-action-section container">
+            <h2>Siz de Kitap Dünyası'na Katılın!</h2>
+            <p>Okuma serüveninizi bir üst seviyeye taşıyın. Binlerce kitaba erişin, kendi yorumlarınızı paylaşın ve yeni okuma arkadaşları edinin.</p>
+            <a href="#kayit-ol" class="btn auth-btn-primary">Hemen Ücretsiz Katıl</a>
         </section>
     </main>
 
@@ -1025,8 +1237,8 @@
                     <h3>Hızlı Linkler</h3>
                     <ul>
                         <li><a href="#ana-sayfa">Ana Sayfa</a></li>
-                        <li><a href="#kategoriler">Kategoriler</a></li>
-                        <li><a href="#kitaplar">Öne Çıkan Kitaplar</a></li>
+                        <li><a href="#kategoriler-section">Kategoriler</a></li>
+                        <li><a href="#kitaplar">Tüm Kitaplar</a></li>
                         <li><a href="#okur-yorumlari">Okur Yorumları</a></li>
                         <li><a href="#gunun-alintisi">Günün Alıntısı</a></li>
                         <li><a href="#">Yeni Çıkanlar</a></li>
@@ -1059,120 +1271,120 @@
         </div>
     </footer>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
+        // Cart management (using localStorage for persistence, though not fully implemented for dynamic books here)
+        let cart = JSON.parse(localStorage.getItem('kitapDunyasiCart')) || [];
+        const cartItemCountSpan = document.getElementById('cart-item-count');
+
+        // Book data (simplified as they are now static in HTML) - Kept for reference but not actively used for rendering in this static version
+        const books = [
+            { id: '1', title: 'Suç ve Ceza', author: 'Fyodor Dostoyevski', price: 35.99, category: 'roman' },
+            { id: '2', title: '1984', author: 'George Orwell', price: 29.99, category: 'roman' },
+            { id: '3', title: 'Simyacı', author: 'Paulo Coelho', price: 24.99, category: 'roman' },
+            { id: '4', title: 'Sapiens', author: 'Yuval Noah Harari', price: 42.99, category: 'bilim' },
+            { id: '5', title: 'Kürk Mantolu Madonna', author: 'Sabahattin Ali', price: 19.99, category: 'roman' },
+            { id: '6', title: 'İnsan Nasıl Yaşar', author: 'Lev Tolstoy', price: 27.99, category: 'kisisel-gelisim' },
+            { id: '7', title: 'Evrenin Kısa Tarihi', author: 'Stephen Hawking', price: 39.50, category: 'bilim' },
+            { id: '8', title: 'Sanatın Öyküsü', author: 'E. H. Gombrich', price: 55.00, category: 'sanat' },
+            { id: '9', title: 'Etkili İnsanların 7 Alışkanlığı', author: 'Stephen Covey', price: 32.00, category: 'is-kariyer' },
+            { id: '10', title: 'Nutuk', author: 'Mustafa Kemal Atatürk', price: 45.00, category: 'tarih' },
+            { id: '11', title: 'Küçük Prens', author: 'Antoine de Saint-Exupéry', price: 18.50, category: 'cocuk' },
+            { id: '12', title: 'Hobbit', author: 'J.R.R. Tolkien', price: 30.00, category: 'fantastik' },
+            { id: '13', title: 'Psikolojinin Temelleri', author: 'Carole Wade', price: 60.00, category: 'bilim' },
+            { id: '14', title: 'Sıfırıncı Gün', author: 'Sabahattin Zaim', price: 22.00, category: 'is-kariyer' },
+            { id: '15', title: 'Dönüşüm', author: 'Franz Kafka', price: 15.00, category: 'roman' }
+        ];
+
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            attachGlobalEventListeners();
+            displayQuote(); // Initial quote display
+            observeSectionsForAnimations(); // Re-attach observer for dynamic sections
         });
 
-        // Book card interactions - increased hover effect
-        document.querySelectorAll('.book-card').forEach(card => {
-            card.addEventListener('mouseenter', function () {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
+        function attachGlobalEventListeners() {
+            // Search button listener
+            const searchBtn = document.getElementById('search-btn');
+            const searchInput = document.getElementById('search-input');
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', () => {
+                    const searchTerm = searchInput.value.trim();
+                    alert(`"${searchTerm}" için arama yapılıyor... (Bu bir demo özelliğidir)`);
+                });
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        searchBtn.click();
+                    }
+                });
+            }
+
+            // Cart container click
+            const cartContainer = document.getElementById('cart-container');
+            if (cartContainer) {
+                cartContainer.addEventListener('click', () => {
+                    alert(`Sepetinizde ${cart.reduce((sum, item) => sum + item.quantity, 0)} ürün var.`);
+                });
+            }
+
+            // Add to Cart / Read buttons for static books
+            document.querySelectorAll('.book-card .btn-primary-book-action').forEach(button => {
+                button.addEventListener('click', function() {
+                    const bookTitle = this.closest('.book-content').querySelector('.book-title').textContent;
+                    // Simulate adding to cart with an alert
+                    alert(`${bookTitle} sepete eklendi!`);
+                    // In a real app, you'd find the book by ID from 'books' array and add to 'cart'
+                    // For static books, we just simulate the action.
+                    // This part currently doesn't actually add to the 'cart' array, but the alert works.
+                    // If you want actual cart functionality, you'd need to re-introduce dynamic book rendering
+                    // and associated JS logic.
+                });
             });
 
-            card.addEventListener('mouseleave', function () {
-                this.style.transform = 'translateY(0) scale(1)';
-            });
-        });
-
-        // Category card interactions - subtle pulse on click
-        document.querySelectorAll('.category-card').forEach(card => {
-            card.addEventListener('click', function () {
-                this.style.transition = 'transform 0.15s ease-in-out';
-                this.style.transform = 'scale(0.98)';
-                setTimeout(() => {
-                    this.style.transform = 'scale(1)';
-                    this.style.transition = 'transform 0.3s ease'; // Restore original transition
-                }, 150);
-            });
-        });
-
-        // Search functionality for the new standalone search bar
-        const mainSearchButton = document.getElementById('main-search-button');
-        const mainSearchInput = document.getElementById('main-search-input');
-
-        if (mainSearchButton && mainSearchInput) {
-            mainSearchButton.addEventListener('click', function (e) {
-                e.preventDefault();
-                const searchTerm = mainSearchInput.value;
-                if (searchTerm.trim()) {
-                    alert(`"${searchTerm}" için ana sayfada arama yapılıyor...`);
-                    // Here you would normally send the search to the server or filter existing content
-                } else {
-                    alert("Lütfen bir arama terimi girin.");
-                }
+            document.querySelectorAll('.book-card .btn-secondary-book-action').forEach(button => {
+                button.addEventListener('click', function() {
+                    const bookTitle = this.closest('.book-content').querySelector('.book-title').textContent;
+                    alert(`${bookTitle} şimdi okunuyor... (Bu bir demo özelliğidir)`);
+                });
             });
 
-            mainSearchInput.addEventListener('keypress', function (e) {
-                if (e.key === 'Enter') {
-                    mainSearchButton.click();
-                }
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
             });
         }
 
-
-        // Buy button interactions
-        document.querySelectorAll('.btn-buy').forEach(button => {
-            button.addEventListener('click', function () {
-                const bookId = this.dataset.bookId;
-                const bookName = this.dataset.bookName;
-                const bookPrice = parseFloat(this.dataset.bookPrice);
-
-                addToCart({ id: bookId, name: bookName, price: bookPrice, quantity: 1 });
-                alert(`"${bookName}" kitabı sepete eklendi!`);
-            });
-        });
-
-        // Read button interactions
-        document.querySelectorAll('.btn-read').forEach(button => {
-            button.addEventListener('click', function () {
-                const bookTitle = this.closest('.book-content').querySelector('.book-title').textContent;
-                alert(`"${bookTitle}" kitabını okumaya başlıyorsunuz... Keyifli okumalar!`);
-            });
-        });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                    observer.unobserve(entry.target); // Unobserve once animated
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (cartItemCountSpan) {
+                cartItemCountSpan.textContent = totalItems;
+                if (totalItems > 0) {
+                    cartItemCountSpan.classList.add('bounce');
+                    setTimeout(() => {
+                        cartItemCountSpan.classList.remove('bounce');
+                    }, 500);
                 }
-            });
-        }, observerOptions);
+            }
+        }
 
-        // Observe elements for animation
-        document.querySelectorAll('.book-card, .category-card, .testimonial-card, .quote-of-the-day').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // Special animation for hero section elements on load
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelector('.hero h1').style.animationPlayState = 'running';
-            document.querySelector('.hero p').style.animationPlayState = 'running';
-            document.querySelector('.cta-buttons').style.animationPlayState = 'running';
-        });
+        // Note: `saveCart` and `addToCart` functions for the `cart` array are present but
+        // `addToCart` is currently not fully integrated with the static book card buttons
+        // to actually modify the `cart` array based on `bookId` from data attributes.
+        // The `addToCartItem` from the previous version was more complete for dynamic rendering.
+        // For this static version, the button clicks just trigger an alert.
+        function saveCart() {
+            localStorage.setItem('kitapDunyasiCart', JSON.stringify(cart));
+            updateCartCount();
+        }
 
         // --- Günün Alıntısı Dinamikleştirme ---
         const quotes = [
@@ -1232,54 +1444,41 @@
             currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
         }
 
-        const styleSheet = document.createElement("style");
-        styleSheet.type = "text/css";
-        styleSheet.innerText = `
-                    .fade-out {
-                        opacity: 0;
-                        transition: opacity 0.3s ease-out;
-                    }
-                    .fade-in-quote {
-                        animation: fadeIn 1s forwards;
-                    }
-                `;
-        document.head.appendChild(styleSheet);
-
         if (newQuoteButton) { // Ensure button exists before adding listener
             newQuoteButton.addEventListener('click', displayQuote);
         }
-        document.addEventListener('DOMContentLoaded', displayQuote);
-        // --- Günün Alıntısı Dinamikleştirme Sonu ---
 
-        // --- Sepet Fonksiyonları ---
-        let cart = JSON.parse(localStorage.getItem('kitapDunyasiCart')) || [];
-        const cartItemCountSpan = document.getElementById('cart-item-count');
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
 
-        function updateCartCount() {
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            if (cartItemCountSpan) { // Check if element exists (for index.html)
-                cartItemCountSpan.textContent = totalItems;
-            }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target); // Unobserve once animated
+                }
+            });
+        }, observerOptions);
+
+        function observeSectionsForAnimations() {
+            document.querySelectorAll('.dynamic-section, .stats-section, .testimonials-section, .quote-of-the-day-section, .call-to-action-section').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
         }
 
-        function saveCart() {
-            localStorage.setItem('kitapDunyasiCart', JSON.stringify(cart));
-            updateCartCount();
-        }
-
-        function addToCart(book) {
-            const existingBook = cart.find(item => item.id === book.id);
-            if (existingBook) {
-                existingBook.quantity++;
-            } else {
-                cart.push(book);
-            }
-            saveCart();
-        }
-
-        // Initialize cart count on page load
-        document.addEventListener('DOMContentLoaded', updateCartCount);
-        // --- Sepet Fonksiyonları Sonu ---
+        // Special animation for hero section elements on load
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.hero-section h1').style.animationPlayState = 'running';
+            document.querySelector('.hero-section p').style.animationPlayState = 'running';
+            document.querySelector('.cta-buttons').style.animationPlayState = 'running';
+        });
     </script>
 </body>
 </html>
