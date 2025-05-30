@@ -26,6 +26,18 @@ namespace EntityLayer.Entities
         [Display(Name = "Aktif Mi?")]
         public bool IsActive { get; set; } = true;
 
+        [Display(Name = "Oluşturulma Tarihi")]
+        public DateTime CreatedAt { get; set; } = DateTime.Now;
+
+        [Display(Name = "Güncelleme Tarihi")]
+        public DateTime? UpdatedAt { get; set; }
+
+        [Display(Name = "Kapanış Tarihi")]
+        public DateTime? ClosedAt { get; set; }
+
+        [Display(Name = "Profil Fotoğrafı")]
+        public string? ProfilePhotoUrl { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> UserRoles { get; set; } = new List<IdentityUserRole<string>>();
 
     }
