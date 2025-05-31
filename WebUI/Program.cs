@@ -1,7 +1,16 @@
+using Microsoft.Extensions.Options;
+using NuGet.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpClient("MyApiClient", (sp, client) =>
+{
+    var apiSettings = sp.GetRequiredService<IOptions<ApiSettings>>().Value;
+    client.BaseAddress = new Uri(apiSettings.BaseUrl!);
+});
 
 var app = builder.Build();
 

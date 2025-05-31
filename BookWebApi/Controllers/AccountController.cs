@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Security.Claims; // Claim types için ekledik
+using System.Security.Claims;
 
 namespace WebApi.Controllers
 {
-    [Route("api/[controller]")] // Route niteliğini ekledik
-    [ApiController] // ApiController niteliğini ekledik
+    [Route("api/[controller]")]
+    [ApiController]
     public class AccountController : ControllerBase
     {
         private readonly UserManager<AppUser> _userManager;
@@ -82,7 +82,7 @@ namespace WebApi.Controllers
         }
 
 
-        [Authorize] 
+        [Authorize]
         [HttpGet("user/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -108,7 +108,7 @@ namespace WebApi.Controllers
                 return NotFound($"ID'si '{id}' olan kullanıcı bulunamadı.");
             }
 
-            var userDto = new AppUserDto // Bu DTO'yu DTOLayer.WebApiDTO.AppUserDTO'da tanımlamanız gerekecek
+            var userDto = new AppUserDto
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
@@ -120,7 +120,7 @@ namespace WebApi.Controllers
             return Ok(userDto);
         }
 
-        [Authorize] 
+        [Authorize]
         [HttpPost("change-password")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

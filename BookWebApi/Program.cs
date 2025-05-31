@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using WebApi.Mapping;
+using BusinessLayer.Conteiner;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ builder.Services.AddDbContext<ETicaretDb>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
+// Dependency Injection
+builder.Services.ConteinerDependencies();
 
 
 // --- BURADAN ÝTÝBAREN IDENTITY AYARLARI EKLENDÝ VE GÜNCELLENDÝ ---
