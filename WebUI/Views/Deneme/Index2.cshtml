@@ -1,747 +1,438 @@
 ﻿@{
     Layout = null;
 }
-
 <!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KırtasiyeMarket - En İyi Kırtasiye Ürünleri</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
-        }
-
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 1rem 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .header-top {
-            background: rgba(0,0,0,0.1);
-            padding: 0.5rem 0;
-            font-size: 0.9rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            text-decoration: none;
-            color: white;
-        }
-
-        .search-bar {
-            flex: 1;
-            max-width: 500px;
-            margin: 0 2rem;
-            position: relative;
-        }
-
-            .search-bar input {
-                width: 100%;
-                padding: 12px 50px 12px 20px;
-                border: none;
-                border-radius: 25px;
-                font-size: 1rem;
-                outline: none;
-            }
-
-        .search-btn {
-            position: absolute;
-            right: 5px;
-            top: 5px;
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 7px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-            .search-btn:hover {
-                background: #ff5252;
-            }
-
-        .header-actions {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .cart-btn, .login-btn {
-            background: rgba(255,255,255,0.2);
-            color: white;
-            text-decoration: none;
-            padding: 10px 20px;
-            border-radius: 20px;
-            transition: background 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-            .cart-btn:hover, .login-btn:hover {
-                background: rgba(255,255,255,0.3);
-            }
-
-        /* Navigation */
-        nav {
-            background: rgba(0,0,0,0.1);
-            padding: 1rem 0;
-        }
-
-        .nav-menu {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            list-style: none;
-        }
-
-            .nav-menu a {
-                color: white;
-                text-decoration: none;
-                padding: 0.5rem 1rem;
-                border-radius: 20px;
-                transition: background 0.3s;
-            }
-
-                .nav-menu a:hover {
-                    background: rgba(255,255,255,0.2);
-                }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23f0f2f5" width="1200" height="600"/><circle fill="%23e3f2fd" cx="200" cy="150" r="50"/><circle fill="%23fff3e0" cx="400" cy="300" r="30"/><circle fill="%23f3e5f5" cx="800" cy="200" r="40"/><circle fill="%23e8f5e8" cx="1000" cy="400" r="35"/></svg>');
-            height: 500px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .hero-content p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .cta-btn {
-            background: #ff6b6b;
-            color: white;
-            text-decoration: none;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            transition: all 0.3s;
-            display: inline-block;
-        }
-
-            .cta-btn:hover {
-                background: #ff5252;
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(255,107,107,0.4);
-            }
-
-        /* Categories */
-        .categories {
-            padding: 4rem 0;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-
-        .category-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .category-card {
-            background: white;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-            text-decoration: none;
-            color: #333;
-        }
-
-            .category-card:hover {
-                transform: translateY(-10px);
-                box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            }
-
-        .category-icon {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 1rem;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: white;
-        }
-
-        .category-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Featured Products */
-        .featured-products {
-            padding: 4rem 0;
-            background: #f8f9fa;
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .product-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
-            transition: all 0.3s;
-        }
-
-            .product-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 15px 40px rgba(0,0,0,0.15);
-            }
-
-        .product-image {
-            height: 200px;
-            background: linear-gradient(45deg, #f0f2f5, #e1e8ed);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #999;
-        }
-
-        .product-info {
-            padding: 1.5rem;
-        }
-
-            .product-info h4 {
-                font-size: 1.2rem;
-                margin-bottom: 0.5rem;
-                color: #333;
-            }
-
-        .product-price {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #ff6b6b;
-            margin-bottom: 1rem;
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 1rem;
-            margin-left: 0.5rem;
-        }
-
-        .add-to-cart {
-            width: 100%;
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-            .add-to-cart:hover {
-                background: #5a6fd8;
-            }
-
-        /* Newsletter */
-        .newsletter {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 4rem 0;
-            text-align: center;
-        }
-
-            .newsletter h3 {
-                font-size: 2rem;
-                margin-bottom: 1rem;
-            }
-
-        .newsletter-form {
-            display: flex;
-            max-width: 500px;
-            margin: 2rem auto 0;
-            gap: 1rem;
-        }
-
-            .newsletter-form input {
-                flex: 1;
-                padding: 15px;
-                border: none;
-                border-radius: 25px;
-                font-size: 1rem;
-                outline: none;
-            }
-
-        .newsletter-btn {
-            background: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-            .newsletter-btn:hover {
-                background: #ff5252;
-            }
-
-        /* Footer */
-        footer {
-            background: #333;
-            color: white;
-            padding: 3rem 0 1rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #ff6b6b;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-            .footer-section ul li {
-                margin-bottom: 0.5rem;
-            }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-            .footer-section a:hover {
-                color: #ff6b6b;
-            }
-
-        .footer-bottom {
-            border-top: 1px solid #555;
-            padding-top: 1rem;
-            text-align: center;
-            color: #999;
-        }
-
-        /* Responsive */
-        @@media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .search-bar {
-                margin: 0;
-                max-width: 100%;
-            }
-
-            .nav-menu {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .newsletter-form {
-                flex-direction: column;
-            }
-        }
-    </style>
+    <title>Kitap Dünyası</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
 </head>
+
 <body>
-    <header>
-        <div class="header-top">
-            <div class="container">
-                <div style="text-align: center;">
-                    📞 0224 123 45 67 | 📧 info@kirtasiyemarket.com | 🚚 Ücretsiz Kargo 150₺ ve Üzeri Alışverişlerde
-                </div>
-            </div>
-        </div>
+    @await Component.InvokeAsync("_DefaultHeaderPartials")
 
-        <div class="container">
-            <div class="header-content">
-                <a href="#" class="logo">📝 KırtasiyeMarket</a>
-
-                <div class="search-bar">
-                    <input type="text" placeholder="Ürün, marka veya kategori ara...">
-                    <button class="search-btn">🔍</button>
-                </div>
-
-                <div class="header-actions">
-                    <a href="#" class="login-btn">👤 Giriş Yap</a>
-                    @* Update this line to link to your Sepetim action *@
-                    <a href="@Url.Action("Sepetim", "Deneme")" class="cart-btn">🛒 Sepet (<span id="cartItemCount">0</span>)</a>
-                </div>
-            </div>
-        </div>
-
-        <nav>
-            <div class="container">
-                <ul class="nav-menu">
-                    <li><a href="#">Anasayfa</a></li>
-                    <li><a href="#">Yazı Gereçleri</a></li>
-                    <li><a href="#">Okul Malzemeleri</a></li>
-                    <li><a href="#">Ofis Ürünleri</a></li>
-                    <li><a href="#">Sanat Malzemeleri</a></li>
-                    <li><a href="#">Teknoloji</a></li>
-                    <li><a href="#">İndirimli Ürünler</a></li>
+    <main>
+        <div class="content-wrapper">
+            <aside class="sidebar">
+                <h3>Hesap Yönetimi</h3>
+                <ul class="category-list">
+                    <li><button class="category-btn" data-action="siparislerim"><i class="fas fa-box"></i> Siparişlerim</button></li>
+                    <li><button class="category-btn" data-action="favori-ilanlarim"><i class="fas fa-heart"></i> Favori İlanlarım</button></li>
+                    <li><button class="category-btn" data-action="kargolarim"><i class="fas fa-truck"></i> Kargolarım</button></li>
+                    <li><button class="category-btn" data-action="indirim-kodlarim"><i class="fas fa-tags"></i> İndirim Kodlarım</button></li>
+                    <li><button class="category-btn" data-action="hesap-bilgilerim"><i class="fas fa-user-cog"></i> Hesap Bilgilerim</button></li>
+                    <li><button class="category-btn" data-action="cikis-yap"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</button></li>
                 </ul>
-            </div>
-        </nav>
-    </header>
+            </aside>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Kırtasiye İhtiyaçlarınız İçin Doğru Adres</h1>
-            <p>Kaliteli ürünler, uygun fiyatlar ve hızlı teslimat</p>
-            <a href="#" class="cta-btn">Alışverişe Başla</a>
-        </div>
-    </section>
-
-    <section class="categories">
-        <div class="container">
-            <h2 class="section-title">Popüler Kategoriler</h2>
-            <div class="category-grid">
-                <a href="#" class="category-card">
-                    <div class="category-icon">✏️</div>
-                    <h3>Kalemler</h3>
-                    <p>Tükenmez, kurşun, renkli kalemler</p>
-                </a>
-                <a href="#" class="category-card">
-                    <div class="category-icon">📚</div>
-                    <h3>Defterler</h3>
-                    <p>Spiralli, dikişli, kareli defterler</p>
-                </a>
-                <a href="#" class="category-card">
-                    <div class="category-icon">📁</div>
-                    <h3>Dosyalama</h3>
-                    <p>Klasörler, dosyalar, arşivleme</p>
-                </a>
-                <a href="#" class="category-card">
-                    <div class="category-icon">🎨</div>
-                    <h3>Sanat Malzemeleri</h3>
-                    <p>Boyalar, fırçalar, kağıtlar</p>
-                </a>
-                <a href="#" class="category-card">
-                    <div class="category-icon">🖥️</div>
-                    <h3>Teknoloji</h3>
-                    <p>Hesap makineleri, laminatörler</p>
-                </a>
-                <a href="#" class="category-card">
-                    <div class="category-icon">🎒</div>
-                    <h3>Okul Çantaları</h3>
-                    <p>Sırt çantaları, kalem kutuları</p>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section class="featured-products">
-        <div class="container">
-            <h2 class="section-title">Öne Çıkan Ürünler</h2>
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-image">✏️</div>
-                    <div class="product-info">
-                        <h4>Faber-Castell Tükenmez Kalem Seti</h4>
-                        <div class="product-price">
-                            89,90₺
-                            <span class="old-price">119,90₺</span>
-                        </div>
-                        <button class="add-to-cart" data-product-id="1" data-price="89.90" data-original-price="119.90" data-name="Faber-Castell Tükenmez Kalem Seti" data-brand="Faber-Castell" data-features="5'li set, mavi mürekkep, ergonomik tasarım">Sepete Ekle</button>
+            <div class="main-content-area">
+                <section id="siparislerim-content" class="account-content-section active">
+                    <h2 class="section-title">Siparişlerim</h2>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Sipariş Kodu</th>
+                                    <th>Tarih</th>
+                                    <th>Toplam Tutar</th>
+                                    <th>Durum</th>
+                                    <th>Detaylar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#KTP-2025001</td>
+                                    <td>2025-05-20</td>
+                                    <td>99.99 TL</td>
+                                    <td><span class="status-badge delivered">Teslim Edildi</span></td>
+                                    <td><button class="table-action-btn view-details-btn">Görüntüle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#KTP-2025002</td>
+                                    <td>2025-05-22</td>
+                                    <td>55.50 TL</td>
+                                    <td><span class="status-badge processing">Hazırlanıyor</span></td>
+                                    <td><button class="table-action-btn view-details-btn">Görüntüle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#KTP-2025003</td>
+                                    <td>2025-05-25</td>
+                                    <td>120.00 TL</td>
+                                    <td><span class="status-badge shipped">Kargoda</span></td>
+                                    <td><button class="table-action-btn view-details-btn">Görüntüle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#KTP-2025004</td>
+                                    <td>2025-05-28</td>
+                                    <td>30.00 TL</td>
+                                    <td><span class="status-badge cancelled">İptal Edildi</span></td>
+                                    <td><button class="table-action-btn view-details-btn">Görüntüle</button></td>
+                                </tr>
+                                <tr>
+                                    <td>#KTP-2025005</td>
+                                    <td>2025-05-30</td>
+                                    <td>75.25 TL</td>
+                                    <td><span class="status-badge delivered">Teslim Edildi</span></td>
+                                    <td><button class="table-action-btn view-details-btn">Görüntüle</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
-                </div>
+                </section>
 
-                <div class="product-card">
-                    <div class="product-image">📔</div>
-                    <div class="product-info">
-                        <h4>A4 Spiralli Defter 3'lü Set</h4>
-                        <div class="product-price">
-                            45,90₺
-                            <span class="old-price">59,90₺</span>
-                        </div>
-                        <button class="add-to-cart" data-product-id="2" data-price="45.90" data-original-price="59.90" data-name="A4 Spiralli Defter 3'lü Set" data-brand="Adel" data-features="200 sayfa, kareli, tel spiralli">Sepete Ekle</button>
-                    </div>
-                </div>
+                <section id="favori-ilanlarim-content" class="account-content-section" style="display: none;">
+                    <h2 class="section-title">Favori İlanlarım</h2>
+                    <p class="empty-message">Henüz favori ilanınız bulunmuyor.</p>
+                </section>
+                <section id="kargolarim-content" class="account-content-section" style="display: none;">
+                    <h2 class="section-title">Kargolarım</h2>
+                    <p class="empty-message">Takip edilecek kargonuz bulunmuyor.</p>
+                </section>
+                <section id="indirim-kodlarim-content" class="account-content-section" style="display: none;">
+                    <h2 class="section-title">İndirim Kodlarım</h2>
+                    <p class="empty-message">Kullanılabilir indirim kodunuz bulunmuyor.</p>
+                </section>
+                <section id="hesap-bilgilerim-content" class="account-content-section" style="display: none;">
+                    <h2 class="section-title">Hesap Bilgilerim</h2>
+                    <p class="empty-message">Hesap bilgilerinizi buradan düzenleyebilirsiniz.</p>
+                </section>
+                <section id="cikis-yap-content" class="account-content-section" style="display: none;">
+                    <h2 class="section-title">Çıkış Yap</h2>
+                    <p class="empty-message">Çıkış yapmak için yukarıdaki butonu kullanın.</p>
+                </section>
 
-                <div class="product-card">
-                    <div class="product-image">🎨</div>
-                    <div class="product-info">
-                        <h4>Kuru Boya Seti 48 Renk</h4>
-                        <div class="product-price">
-                            75,90₺
-                            <span class="old-price">95,90₺</span>
-                        </div>
-                        <button class="add-to-cart" data-product-id="3" data-price="75.90" data-original-price="95.90" data-name="Kuru Boya Seti 48 Renk" data-brand="Staedtler" data-features="Kaliteli pigmentler, metal kutu">Sepete Ekle</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">📁</div>
-                    <div class="product-info">
-                        <h4>Plastik Klasör A4 10'lu Paket</h4>
-                        <div class="product-price">
-                            125,90₺
-                            <span class="old-price">149,90₺</span>
-                        </div>
-                        <button class="add-to-cart" data-product-id="4" data-price="125.90" data-original-price="149.90" data-name="Plastik Klasör A4 10'lu Paket" data-brand="Leitz" data-features="Canlı renkler, dayanıklı plastik">Sepete Ekle</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">🖥️</div>
-                    <div class="product-info">
-                        <h4>Casio Hesap Makinesi</h4>
-                        <div class="product-price">
-                            189,90₺
-                            <span class="old-price">219,90₺</span>
-                        </div>
-                        <button class="add-to-cart" data-product-id="5" data-price="189.90" data-original-price="219.90" data-name="Casio Hesap Makinesi" data-brand="Casio" data-features="Bilimsel fonksiyonlar, güneş enerjili">Sepete Ekle</button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">🎒</div>
-                    <div class="product-info">
-                        <h4>Ergonomik Okul Çantası</h4>
-                        <div class="product-price">
-                            299,90₺
-                            <span class="old-price">349,90₺</span>
-                        </div>
-                        <button class="add-to-cart" data-product-id="6" data-price="299.90" data-original-price="349.90" data-name="Ergonomik Okul Çantası" data-brand="Eastpak" data-features="Geniş iç hacim, su geçirmez kumaş">Sepete Ekle</button>
-                    </div>
-                </div>
             </div>
         </div>
-    </section>
-
-    <section class="newsletter">
-        <div class="container">
-            <h3>Kampanya ve İndirimlerden İlk Siz Haberdar Olun!</h3>
-            <p>E-bültenimize kayıt olun, özel fırsatları kaçırmayın.</p>
-            <div class="newsletter-form">
-                <input type="email" placeholder="E-posta adresinizi girin">
-                <button class="newsletter-btn">Kayıt Ol</button>
-            </div>
-        </div>
-    </section>
+    </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Kurumsal</h4>
-                    <ul>
-                        <li><a href="#">Hakkımızda</a></li>
-                        <li><a href="#">İletişim</a></li>
-                        <li><a href="#">Kariyer</a></li>
-                        <li><a href="#">Basın</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Müşteri Hizmetleri</h4>
-                    <ul>
-                        <li><a href="#">SSS</a></li>
-                        <li><a href="#">İade ve Değişim</a></li>
-                        <li><a href="#">Kargo ve Teslimat</a></li>
-                        <li><a href="#">Ödeme Seçenekleri</a></li>
-                        <li><a href="#">Canlı Destek</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>Kategoriler</h4>
-                    <ul>
-                        <li><a href="#">Yazı Gereçleri</a></li>
-                        <li><a href="#">Okul Malzemeleri</a></li>
-                        <li><a href="#">Ofis Ürünleri</a></li>
-                        <li><a href="#">Sanat Malzemeleri</a></li>
-                        <li><a href="#">Teknoloji</a></li>
-                        <li><a href="#">İndirimli Ürünler</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-section">
-                    <h4>İletişim Bilgileri</h4>
-                    <ul>
-                        <li>📍 Osmangazi Mah. Kırtasiye Cad. No:123 Bursa</li>
-                        <li>📞 0224 123 45 67</li>
-                        <li>📧 info@kirtasiyemarket.com</li>
-                        <li>🕐 Pazartesi-Cumartesi 09:00-18:00</li>
-                    </ul>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Kitap Dünyası</h3>
+                <p>Okumayı sevenleri bir araya getiren platform.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 KırtasiyeMarket. Tüm hakları saklıdır. | Gizlilik Politikası | Kullanım Şartları</p>
+            <div class="footer-section">
+                <h3>Hızlı Erişim</h3>
+                <ul>
+                    <li><a href="#">Anasayfa</a></li>
+                    <li><a href="#kitaplar">Tüm Kitaplar</a></li>
+                    <li><a href="#okur-yorumlari">Yorumlar</a></li>
+                    <li><a href="#gunun-alintisi">Günün Alıntısı</a></li>
+                </ul>
             </div>
+            <div class="footer-section">
+                <h3>Yardım</h3>
+                <ul>
+                    <li><a href="#">Sıkça Sorulan Sorular</a></li>
+                    <li><a href="#">Gizlilik Politikası</a></li>
+                    <li><a href="#">Kullanım Koşulları</a></li>
+                    <li><a href="#">İletişim</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Bize Ulaşın</h3>
+                <p>Adres: Kitap Sok. No: 123, Okur Şehri</p>
+                <p>E-posta: info@kitapdunyasi.com</p>
+                <p>Telefon: +90 123 456 7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Kitap Dünyası. Tüm Hakları Saklıdır.
         </div>
     </footer>
 
     <script>
-        // Use an object to store cart items for easy access and manipulation
-        let cart = JSON.parse(localStorage.getItem('kirtasiyeMarketCart')) || {};
+        let cart = JSON.parse(localStorage.getItem('kitapDunyasiCart')) || [];
+        const cartItemCountSpan = document.getElementById('cart-item-count');
 
-        function updateCartCount() {
-            let totalItems = 0;
-            for (const productId in cart) {
-                totalItems += cart[productId].quantity;
+        // Book data (for category filtering and general use, although books are static in HTML)
+        const books = [
+            { id: '1', title: 'Suç ve Ceza', author: 'Fyodor Dostoyevski', price: 35.99, category: 'roman' },
+            { id: '2', title: '1984', author: 'George Orwell', price: 29.99, category: 'roman' },
+            { id: '3', title: 'Simyacı', author: 'Paulo Coelho', price: 24.99, category: 'roman' },
+            { id: '4', title: 'Sapiens', author: 'Yuval Noah Harari', price: 42.99, category: 'bilim' },
+            { id: '5', title: 'Kürk Mantolu Madonna', author: 'Sabahattin Ali', price: 19.99, category: 'roman' },
+            { id: '6', title: 'İnsan Nasıl Yaşar', author: 'Lev Tolstoy', price: 27.99, category: 'kisisel-gelisim' },
+            { id: '7', title: 'Evrenin Kısa Tarihi', author: 'Stephen Hawking', price: 39.50, category: 'bilim' },
+            { id: '8', title: 'Sanatın Öyküsü', author: 'E. H. Gombrich', price: 55.00, category: 'sanat' },
+            { id: '9', title: 'Etkili İnsanların 7 Alışkanlığı', author: 'Stephen Covey', price: 32.00, category: 'is-kariyer' },
+            { id: '10', title: 'Nutuk', author: 'Mustafa Kemal Atatürk', price: 45.00, category: 'tarih' },
+            { id: '11', title: 'Küçük Prens', author: 'Antoine de Saint-Exupéry', price: 18.50, category: 'cocuk' },
+            { id: '12', title: 'Hobbit', author: 'J.R.R. Tolkien', price: 30.00, category: 'fantastik' },
+            { id: '13', title: 'Psikolojinin Temelleri', author: 'Carole Wade', price: 60.00, category: 'bilim' },
+            { id: '14', title: 'Sıfırıncı Gün', author: 'Sabahattin Zaim', price: 22.00, category: 'is-kariyer' },
+            { id: '15', title: 'Dönüşüm', author: 'Franz Kafka', price: 15.00, category: 'roman' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            attachGlobalEventListeners();
+            displayQuote(); // Initial quote display
+            observeSectionsForAnimations(); // Re-attach observer for dynamic sections
+            setupAccountActions(); // Setup account actions for sidebar
+        });
+
+        function attachGlobalEventListeners() {
+            const searchBtn = document.getElementById('search-btn');
+            const searchInput = document.getElementById('search-input');
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', () => {
+                    const searchTerm = searchInput.value.trim().toLowerCase();
+                    filterBooks(searchTerm);
+                });
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        searchBtn.click();
+                    }
+                });
             }
-            document.getElementById('cartItemCount').textContent = totalItems;
-        }
 
-        // Add to cart functionality
-        document.querySelectorAll('.add-to-cart').forEach(button => {
-            button.addEventListener('click', function () {
-                const productId = this.dataset.productId;
-                const productName = this.dataset.name;
-                const productPrice = parseFloat(this.dataset.price);
-                const originalPrice = parseFloat(this.dataset.originalPrice);
-                const productBrand = this.dataset.brand;
-                const productFeatures = this.dataset.features;
+            const cartContainer = document.getElementById('cart-container');
+            if (cartContainer) {
+                cartContainer.addEventListener('click', () => {
+                    alert(`Sepetinizde ${cart.reduce((sum, item) => sum + item.quantity, 0)} ürün var. (Bu bir demo özelliğidir)`);
+                });
+            }
 
-
-                if (cart[productId]) {
-                    cart[productId].quantity++;
-                } else {
-                    cart[productId] = {
-                        name: productName,
-                        price: productPrice,
-                        originalPrice: originalPrice,
-                        brand: productBrand,
-                        features: productFeatures,
-                        quantity: 1
-                    };
-                }
-
-                localStorage.setItem('kirtasiyeMarketCart', JSON.stringify(cart));
-                updateCartCount();
-                alert(productName + ' sepete eklendi!');
+            // Add to Cart / Read buttons for static books
+            document.querySelectorAll('.book-card .btn-primary-book-action').forEach(button => {
+                button.addEventListener('click', function () {
+                    const bookTitle = this.closest('.book-content').querySelector('.book-title').textContent;
+                    // Simulate adding to cart with an alert
+                    alert(`${bookTitle} sepete eklendi!`);
+                });
             });
-        });
 
-        // Initialize cart count on page load
-        document.addEventListener('DOMContentLoaded', updateCartCount);
+            document.querySelectorAll('.book-card .btn-secondary-book-action').forEach(button => {
+                button.addEventListener('click', function () {
+                    const bookTitle = this.closest('.book-content').querySelector('.book-title').textContent;
+                    alert(`${bookTitle} şimdi okunuyor... (Bu bir demo özelliğidir)`);
+                });
+            });
 
-        // Simple interactions
-        document.querySelector('.search-btn').addEventListener('click', function () {
-            const searchInput = document.querySelector('.search-bar input');
-            if (searchInput.value.trim()) {
-                alert('Arama yapılıyor: ' + searchInput.value);
-            } else {
-                alert('Lütfen arama yapmak için bir kelime girin.');
-            }
-        });
-
-        document.querySelector('.search-bar input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                document.querySelector('.search-btn').click();
-            }
-        });
-
-        document.querySelector('.newsletter-btn').addEventListener('click', function () {
-            const emailInput = document.querySelector('.newsletter-form input');
-            if (emailInput.value.includes('@@')) { // Basic email validation
-                alert('E-bülten kaydınız başarıyla tamamlandı!');
-                emailInput.value = '';
-            } else {
-                alert('Lütfen geçerli bir e-posta adresi girin.');
-            }
-        });
-
-        // Smooth scrolling for internal links (optional, if you use #sections)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                if (targetId && targetId !== '#') { // Check if it's a valid ID and not just '#'
-                    const target = document.querySelector(targetId);
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
                     if (target) {
                         target.scrollIntoView({
-                            behavior: 'smooth'
+                            behavior: 'smooth',
+                            block: 'start'
                         });
                     }
+                });
+            });
+        }
+
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (cartItemCountSpan) {
+                cartItemCountSpan.textContent = totalItems;
+                if (totalItems > 0) {
+                    cartItemCountSpan.classList.add('bounce');
+                    setTimeout(() => {
+                        cartItemCountSpan.classList.remove('bounce');
+                    }, 500);
+                }
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('kitapDunyasiCart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        // --- Günün Alıntısı Dinamikleştirme ---
+        const quotes = [
+            {
+                quote: "Okumak, bilginin en derin kuyularından kana kana içmek gibidir. Her yeni sayfa, yeni bir dünyaya açılan kapıdır.",
+                author: "Mevlana"
+            },
+            {
+                quote: "İnsan ruhunun gıdası kitaplardır. Okudukça büyür, gelişimini sürdürür ve hayatı daha derinden anlar.",
+                author: "Fyodor Dostoyevski"
+            },
+            {
+                quote: "Bir kitap, uykusuz bir gecenin ve sonsuz bir düşüncenin ürünüdür.",
+                author: "George Orwell"
+            },
+            {
+                quote: "En iyi arkadaşım, bana okumadığım bir kitabı veren kişidir.",
+                author: "Abraham Lincoln"
+            },
+            {
+                quote: "Kitaplar, hiç kapanmayan pencerelerdir.",
+                author: "Nazım Hikmet"
+            },
+            {
+                quote: "Okumadan geçen bir gün, kaybolmuş bir gündür.",
+                author: "Anonim"
+            }
+        ];
+
+        let currentQuoteIndex = 0;
+        const dailyQuoteElement = document.getElementById('daily-quote');
+        const quoteAuthorElement = document.getElementById('quote-author');
+        const newQuoteButton = document.getElementById('new-quote-btn');
+
+        function displayQuote() {
+            if (!dailyQuoteElement || !quoteAuthorElement) return;
+
+            dailyQuoteElement.classList.add('fade-out');
+            quoteAuthorElement.classList.add('fade-out');
+
+            setTimeout(() => {
+                const quote = quotes[currentQuoteIndex];
+                dailyQuoteElement.textContent = `"${quote.quote}"`;
+                quoteAuthorElement.textContent = `- ${quote.author}`;
+
+                dailyQuoteElement.classList.remove('fade-out');
+                quoteAuthorElement.classList.remove('fade-in-quote');
+                dailyQuoteElement.classList.add('fade-in-quote');
+                quoteAuthorElement.classList.add('fade-in-quote');
+
+                setTimeout(() => {
+                    dailyQuoteElement.classList.remove('fade-in-quote');
+                    quoteAuthorElement.classList.remove('fade-in-quote');
+                }, 1000);
+            }, 300);
+
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        }
+
+        if (newQuoteButton) {
+            newQuoteButton.addEventListener('click', displayQuote);
+        }
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
                 }
             });
+        }, observerOptions);
+
+        function observeSectionsForAnimations() {
+            document.querySelectorAll('.dynamic-section, .stats-section, .testimonials-section, .quote-of-the-day-section, .call-to-action-section').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Special animation for hero section elements on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if these elements exist before trying to animate them
+            const heroTitle = document.querySelector('.hero-section h1');
+            const heroSubtitle = document.querySelector('.hero-section p');
+            const ctaButtons = document.querySelector('.cta-buttons');
+
+            if (heroTitle) heroTitle.style.animationPlayState = 'running';
+            if (heroSubtitle) heroSubtitle.style.animationPlayState = 'running';
+            if (ctaButtons) ctaButtons.style.animationPlayState = 'running';
         });
+
+        // --- Book Filtering by Search Term ---
+        function filterBooks(searchTerm) {
+            const allBookCards = document.querySelectorAll('.book-card');
+            let foundResults = false;
+
+            allBookCards.forEach(card => {
+                const bookTitle = card.querySelector('.book-title').textContent.toLowerCase();
+                const bookAuthor = card.querySelector('.book-author').textContent.toLowerCase();
+
+                if (bookTitle.includes(searchTerm) || bookAuthor.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    foundResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const booksSection = document.getElementById('kitaplar');
+            let noResultsMessage = booksSection ? booksSection.querySelector('.no-results') : null;
+            if (!noResultsMessage && booksSection) {
+                noResultsMessage = document.createElement('div');
+                noResultsMessage.classList.add('no-results');
+                noResultsMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i><p>Aradığınız kriterlere uygun kitap bulunamadı.</p>`;
+                booksSection.appendChild(noResultsMessage);
+            }
+
+            if (foundResults) {
+                if (noResultsMessage) noResultsMessage.style.display = 'none';
+            } else {
+                if (noResultsMessage) noResultsMessage.style.display = 'block';
+            }
+        }
+
+        // --- Hesap Yönetimi Aksiyonları ---
+        function setupAccountActions() {
+            const accountActionButtons = document.querySelectorAll('.sidebar button[data-action]');
+            const accountContentSections = document.querySelectorAll('.account-content-section');
+
+            // Function to hide all content sections
+            function hideAllAccountContent() {
+                accountContentSections.forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('active-content'); // Remove active class as well
+                });
+            }
+
+            accountActionButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const action = this.dataset.action;
+
+                    // Remove 'active' class from all sidebar buttons
+                    accountActionButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add 'active' class to the clicked button
+                    this.classList.add('active');
+
+                    // Hide all content sections first
+                    hideAllAccountContent();
+
+                    // Show the relevant content section based on the data-action
+                    const targetContentId = `${action}-content`;
+                    const targetContent = document.getElementById(targetContentId);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                        targetContent.classList.add('active-content'); // Add active class for potential animations
+                    } else {
+                        // Fallback for actions without specific content divs, or to show a general message
+                        alert('İçerik yükleniyor: ' + action);
+                    }
+                });
+            });
+
+            // Set default active state and show content for "Siparişlerim" on load
+            const defaultButton = document.querySelector('.sidebar button[data-action="siparislerim"]');
+            if (defaultButton) {
+                defaultButton.classList.add('active');
+                const defaultContent = document.getElementById('siparislerim-content');
+                if (defaultContent) {
+                    defaultContent.style.display = 'block';
+                    defaultContent.classList.add('active-content');
+                }
+            }
+        }
     </script>
 </body>
 </html>

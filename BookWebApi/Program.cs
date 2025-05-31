@@ -1,19 +1,24 @@
-using DataAccessLayer.Context; // DbContext için
-using EntityLayer.Entities; // AppUser, AppRole için
-using Microsoft.AspNetCore.Authorization; // Yetkilendirme policy için
-using Microsoft.AspNetCore.Identity; // Identity servisleri için
-using Microsoft.AspNetCore.Mvc.Authorization; // AuthorizeFilter için
-using Microsoft.EntityFrameworkCore; // UseNpgsql için
-using WebApi.Mapping; // AutoMapper GeneralMapping profiliniz için
+using BusinessLayer.ValidationRules.ProductValidator;
+using DataAccessLayer.Context;
+using EntityLayer.Entities;
+using FluentValidation;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
+using System.Reflection;
+using WebApi.Mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Connection string appsettings.json içinde olmalý
 var connectionString = builder.Configuration.GetConnectionString("PostgreSqlConnection");
 
 // DbContext ve Identity servislerini ekle
 builder.Services.AddDbContext<ETicaretDb>(options =>
-    options.UseNpgsql(connectionString)); // PostgreSQL kullandýðýnýzý varsayýyorum
+    options.UseNpgsql(connectionString));
+
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
 
 // --- BURADAN ÝTÝBAREN IDENTITY AYARLARI EKLENDÝ VE GÜNCELLENDÝ ---
 // Identity servislerini ve þifre/kullanýcý seçeneklerini yapýlandýrma
@@ -24,7 +29,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(options => // AppRole kullandýðýn
     options.Password.RequireLowercase = true; // Þifrede en az bir küçük harf olmalý
     options.Password.RequireUppercase = true; // Þifrede en az bir büyük harf olmalý
     options.Password.RequireNonAlphanumeric = true; // Þifrede en az bir özel karakter olmalý
-    options.Password.RequiredLength = 8; // Þifre en az 8 karakter uzunluðunda olmalý
+    options.Password.RequiredLength = 6; // Þifre en az 8 karakter uzunluðunda olmalý
     // options.Password.RequiredUniqueChars = 1; // Opsiyonel: Þifrede tekrarlayan karakterlerin minimum sayýsý
 
     // Kullanýcý Ayarlarý
@@ -71,25 +76,22 @@ builder.Services.AddControllers(options =>
     options.Filters.Add(new AuthorizeFilter(policy)); // Oluþturulan politikayý bir filtre olarak ekler
 });
 
-// Dikkat! builder.Services.AddControllers(); satýrý burada tekrarlanmamalýdýr!
-// Eðer varsa, bu satýrý silin: builder.Services.AddControllers();
 
-builder.Services.AddEndpointsApiExplorer(); // API keþfi için gerekli (Swagger için)
-builder.Services.AddSwaggerGen(); // Swagger/OpenAPI dokümantasyonu için gerekli
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// Geliþtirme ortamýnda Swagger UI'ý etkinleþtir
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger(); // Swagger JSON endpoint'ini etkinleþtirir
-    app.UseSwaggerUI(); // Swagger UI arayüzünü etkinleþtirir
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection(); // HTTP isteklerini HTTPS'e yönlendirir
+app.UseHttpsRedirection();
 
-app.UseAuthentication();  // Kimlik doðrulama middleware'i: Kullanýcýnýn kimliðini doðrular.
-app.UseAuthorization();   // Yetkilendirme middleware'i: Doðrulanmýþ kullanýcýnýn eriþim yetkilerini kontrol eder.
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers(); // Controller'lardaki rotalarý eþler
 

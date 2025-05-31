@@ -1,409 +1,458 @@
 ﻿@{
-    ViewData["Title"] = "Ana Sayfa - Kitap Dünyası";
-    Layout = "~/Views/Shared/DenemeLayout.cshtml";
+    Layout = null;
 }
-<style>
-    html {
-        font-size: 14px;
-    }
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Dünyası</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
 
-    @@media (min-width: 768px) {
-        html {
-            font-size: 16px;
-        }
-    }
+<body>
+    @await Component.InvokeAsync("_DefaultHeaderPartials")
 
-    .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-select:focus, .input-group-text:focus {
-        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, .25), 0 0 0 0.25rem rgba(13, 110, 253, .25) !important; /* Bootstrap primary color with fallback */
-    }
+    <main>
+        <div class="content-wrapper">
+            <aside class="sidebar">
+                <h3>Hesap Yönetimi</h3>
+                <ul class="category-list">
+                    <li><button class="category-btn active" data-action="siparislerim"><i class="fas fa-box"></i> Siparişlerim</button></li>
+                    <li><button class="category-btn" data-action="favori-ilanlarim"><i class="fas fa-heart"></i> Favori İlanlarım</button></li>
+                    <li><button class="category-btn" data-action="kargolarim"><i class="fas fa-truck"></i> Kargolarım</button></li>
+                    <li><button class="category-btn" data-action="indirim-kodlarim"><i class="fas fa-tags"></i> İndirim Kodlarım</button></li>
+                    <li><button class="category-btn" data-action="hesap-bilgilerim"><i class="fas fa-user-cog"></i> Hesap Bilgilerim</button></li>
+                    <li><button class="category-btn" data-action="cikis-yap"><i class="fas fa-sign-out-alt"></i> Çıkış Yap</button></li>
+                </ul>
+            </aside>
 
-    /* _Layout.cshtml için genel stiller */
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background-color: #f8f9fa; /* Light gray background */
-    }
+            <div class="main-content-area">
+                <section id="siparislerim-content" class="account-content-section active-content">
+                    <h2 class="section-title">Siparişlerim</h2>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Sipariş Kodu</th>
+                                    <th>Tarih</th>
+                                    <th>Toplam Tutar</th>
+                                    <th>Durum</th>
+                                    <th>İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td data-label="Sipariş Kodu">#KTP-2025001</td>
+                                    <td data-label="Tarih">2025-05-20</td>
+                                    <td data-label="Toplam Tutar">99.99 TL</td>
+                                    <td data-label="Durum"><span class="status-badge delivered">Teslim Edildi</span></td>
+                                    <td data-label="İşlemler">
+                                        <button class="icon-action-btn view-details-btn" data-order-id="KTP-2025001" title="Siparişi Görüntüle"><i class="fas fa-eye"></i></button>
+                                        <button class="icon-action-btn edit-order-btn" data-order-id="KTP-2025001" title="Siparişi Düzenle"><i class="fas fa-edit"></i></button>
+                                        <button class="icon-action-btn delete-order-btn" data-order-id="KTP-2025001" title="Siparişi Sil"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Sipariş Kodu">#KTP-2025002</td>
+                                    <td data-label="Tarih">2025-05-22</td>
+                                    <td data-label="Toplam Tutar">55.50 TL</td>
+                                    <td data-label="Durum"><span class="status-badge processing">Hazırlanıyor</span></td>
+                                    <td data-label="İşlemler">
+                                        <button class="icon-action-btn view-details-btn" data-order-id="KTP-2025002" title="Siparişi Görüntüle"><i class="fas fa-eye"></i></button>
+                                        <button class="icon-action-btn edit-order-btn" data-order-id="KTP-2025002" title="Siparişi Düzenle"><i class="fas fa-edit"></i></button>
+                                        <button class="icon-action-btn delete-order-btn" data-order-id="KTP-2025002" title="Siparişi Sil"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Sipariş Kodu">#KTP-2025003</td>
+                                    <td data-label="Tarih">2025-05-25</td>
+                                    <td data-label="Toplam Tutar">120.00 TL</td>
+                                    <td data-label="Durum"><span class="status-badge shipped">Kargoda</span></td>
+                                    <td data-label="İşlemler">
+                                        <button class="icon-action-btn view-details-btn" data-order-id="KTP-2025003" title="Siparişi Görüntüle"><i class="fas fa-eye"></i></button>
+                                        <button class="icon-action-btn edit-order-btn" data-order-id="KTP-2025003" title="Siparişi Düzenle"><i class="fas fa-edit"></i></button>
+                                        <button class="icon-action-btn delete-order-btn" data-order-id="KTP-2025003" title="Siparişi Sil"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Sipariş Kodu">#KTP-2025004</td>
+                                    <td data-label="Tarih">2025-05-28</td>
+                                    <td data-label="Toplam Tutar">30.00 TL</td>
+                                    <td data-label="Durum"><span class="status-badge cancelled">İptal Edildi</span></td>
+                                    <td data-label="İşlemler">
+                                        <button class="icon-action-btn view-details-btn" data-order-id="KTP-2025004" title="Siparişi Görüntüle"><i class="fas fa-eye"></i></button>
+                                        <button class="icon-action-btn edit-order-btn" data-order-id="KTP-2025004" title="Siparişi Düzenle"><i class="fas fa-edit"></i></button>
+                                        <button class="icon-action-btn delete-order-btn" data-order-id="KTP-2025004" title="Siparişi Sil"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td data-label="Sipariş Kodu">#KTP-2025005</td>
+                                    <td data-label="Tarih">2025-05-30</td>
+                                    <td data-label="Toplam Tutar">75.25 TL</td>
+                                    <td data-label="Durum"><span class="status-badge delivered">Teslim Edildi</span></td>
+                                    <td data-label="İşlemler">
+                                        <button class="icon-action-btn view-details-btn" data-order-id="KTP-2025005" title="Siparişi Görüntüle"><i class="fas fa-eye"></i></button>
+                                        <button class="icon-action-btn edit-order-btn" data-order-id="KTP-2025005" title="Siparişi Düzenle"><i class="fas fa-edit"></i></button>
+                                        <button class="icon-action-btn delete-order-btn" data-order-id="KTP-2025005" title="Siparişi Sil"><i class="fas fa-trash-alt"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
 
-    .navbar {
-        border-radius: 0 0 15px 15px;
-        box-shadow: 0 4px 8px rgba(0,0,0,.05);
-    }
+                <section id="favori-ilanlarim-content" class="account-content-section">
+                    <h2 class="section-title">Favori İlanlarım</h2>
+                    <p class="empty-message">Henüz favori ilanınız bulunmuyor.</p>
+                </section>
+                <section id="kargolarim-content" class="account-content-section">
+                    <h2 class="section-title">Kargolarım</h2>
+                    <p class="empty-message">Takip edilecek kargonuz bulunmuyor.</p>
+                </section>
+                <section id="indirim-kodlarim-content" class="account-content-section">
+                    <h2 class="section-title">İndirim Kodlarım</h2>
+                    <p class="empty-message">Kullanılabilir indirim kodunuz bulunmuyor.</p>
+                </section>
+                <section id="hesap-bilgilerim-content" class="account-content-section">
+                    <h2 class="section-title">Hesap Bilgilerim</h2>
+                    <p class="empty-message">Hesap bilgilerinizi buradan düzenleyebilirsiniz.</p>
+                </section>
+                <section id="cikis-yap-content" class="account-content-section">
+                    <h2 class="section-title">Çıkış Yap</h2>
+                    <p class="empty-message">Çıkış yapmak için yukarıdaki butonu kullanın.</p>
+                </section>
+            </div>
+        </div>
+    </main>
 
-    .navbar-brand {
-        font-weight: 700;
-    }
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Kitap Dünyası</h3>
+                <p>Okumayı sevenleri bir araya getiren platform.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Hızlı Erişim</h3>
+                <ul>
+                    <li><a href="#">Anasayfa</a></li>
+                    <li><a href="#kitaplar">Tüm Kitaplar</a></li>
+                    <li><a href="#okur-yorumlari">Yorumlar</a></li>
+                    <li><a href="#gunun-alintisi">Günün Alıntısı</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Yardım</h3>
+                <ul>
+                    <li><a href="#">Sıkça Sorulan Sorular</a></li>
+                    <li><a href="#">Gizlilik Politikası</a></li>
+                    <li><a href="#">Kullanım Koşulları</a></li>
+                    <li><a href="#">İletişim</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Bize Ulaşın</h3>
+                <p>Adres: Kitap Sok. No: 123, Okur Şehri</p>
+                <p>E-posta: info@kitapdunyasi.com</p>
+                <p>Telefon: +90 123 456 7890</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Kitap Dünyası. Tüm Hakları Saklıdır.
+        </div>
+    </footer>
 
-    .footer {
-        background-color: #343a40 !important; /* Dark footer */
-        color: #f8f9fa !important;
-        border-top: none !important;
-    }
+    <script>
+        let cart = JSON.parse(localStorage.getItem('kitapDunyasiCart')) || [];
+        const cartItemCountSpan = document.getElementById('cart-item-count');
 
-        .footer a {
-            color: #ced4da !important;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+        // Book data (for category filtering and general use, although books are static in HTML)
+        const books = [
+            { id: '1', title: 'Suç ve Ceza', author: 'Fyodor Dostoyevski', price: 35.99, category: 'roman' },
+            { id: '2', title: '1984', author: 'George Orwell', price: 29.99, category: 'roman' },
+            { id: '3', title: 'Simyacı', author: 'Paulo Coelho', price: 24.99, category: 'roman' },
+            { id: '4', title: 'Sapiens', author: 'Yuval Noah Harari', price: 42.99, category: 'bilim' },
+            { id: '5', title: 'Kürk Mantolu Madonna', author: 'Sabahattin Ali', price: 19.99, category: 'roman' },
+            { id: '6', title: 'İnsan Nasıl Yaşar', author: 'Lev Tolstoy', price: 27.99, category: 'kisisel-gelisim' },
+            { id: '7', title: 'Evrenin Kısa Tarihi', author: 'Stephen Hawking', price: 39.50, category: 'bilim' },
+            { id: '8', title: 'Sanatın Öyküsü', author: 'E. H. Gombrich', price: 55.00, category: 'sanat' },
+            { id: '9', title: 'Etkili İnsanların 7 Alışkanlığı', author: 'Stephen Covey', price: 32.00, category: 'is-kariyer' },
+            { id: '10', title: 'Nutuk', author: 'Mustafa Kemal Atatürk', price: 45.00, category: 'tarih' },
+            { id: '11', title: 'Küçük Prens', author: 'Antoine de Saint-Exupéry', price: 18.50, category: 'cocuk' },
+            { id: '12', title: 'Hobbit', author: 'J.R.R. Tolkien', price: 30.00, category: 'fantastik' },
+            { id: '13', title: 'Psikolojinin Temelleri', author: 'Carole Wade', price: 60.00, category: 'bilim' },
+            { id: '14', title: 'Sıfırıncı Gün', author: 'Sabahattin Zaim', price: 22.00, category: 'is-kariyer' },
+            { id: '15', title: 'Dönüşüm', author: 'Franz Kafka', price: 15.00, category: 'roman' }
+        ];
 
-            .footer a:hover {
-                color: #ffffff !important;
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCartCount();
+            attachGlobalEventListeners();
+            displayQuote(); // Initial quote display
+            observeSectionsForAnimations(); // Re-attach observer for dynamic sections
+            setupAccountActions(); // Setup account actions for sidebar
+        });
+
+        function attachGlobalEventListeners() {
+            const searchBtn = document.getElementById('search-btn');
+            const searchInput = document.getElementById('search-input');
+            if (searchBtn && searchInput) {
+                searchBtn.addEventListener('click', () => {
+                    const searchTerm = searchInput.value.trim().toLowerCase();
+                    filterBooks(searchTerm);
+                });
+                searchInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        searchBtn.click();
+                    }
+                });
             }
 
-    /* Home/Index.cshtml için özel stiller */
+            const cartContainer = document.getElementById('cart-container');
+            if (cartContainer) {
+                cartContainer.addEventListener('click', () => {
+                    alert(`Sepetinizde ${cart.reduce((sum, item) => sum + item.quantity, 0)} ürün var. (Bu bir demo özelliğidir)`);
+                });
+            }
 
-    /* Hero Carousel */
-    .carousel-item {
-        height: 450px; /* Carousel yüksekliği */
-        background-color: #777;
-        overflow: hidden; /* Taşmayı engelle */
-    }
+            // Add to Cart / Read buttons for static books
+            document.querySelectorAll('.book-card .btn-primary-book-action').forEach(button => {
+                button.addEventListener('click', function () {
+                    const bookTitle = this.closest('.book-content').querySelector('.book-title').textContent;
+                    // Simulate adding to cart with an alert
+                    alert(`${bookTitle} sepete eklendi!`);
+                });
+            });
 
-    .carousel-img-cover {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* Resmi alanı kaplamasını sağlar */
-        filter: brightness(60%); /* Resmi karart */
-        transition: transform 0.5s ease; /* Hover efekti için geçiş */
-    }
+            document.querySelectorAll('.book-card .btn-secondary-book-action').forEach(button => {
+                button.addEventListener('click', function () {
+                    const bookTitle = this.closest('.book-content').querySelector('.book-title').textContent;
+                    alert(`${bookTitle} şimdi okunuyor... (Bu bir demo özelliğidir)`);
+                });
+            });
 
-    .carousel-item:hover .carousel-img-cover {
-        transform: scale(1.03); /* Hover'da hafif büyüt */
-    }
-
-    .carousel-caption {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.4); /* Koyu yarı saydam arka plan */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 20px;
-    }
-
-    .text-shadow {
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    }
-
-    /* Book Card Hover Efekti */
-    .book-card-hover {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: 1px solid rgba(0,0,0,.05);
-    }
-
-        .book-card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,.15) !important;
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
         }
 
-    .book-card-img-container {
-        position: relative;
-        overflow: hidden; /* Resmin taşmasını engelle */
-        border-radius: .375rem .375rem 0 0; /* Kartın üst köşelerine uyum */
-    }
-
-    .book-card-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.6);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .book-card-hover:hover .book-card-overlay {
-        opacity: 1;
-    }
-
-    .book-card-overlay-btn {
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.3s ease, transform 0.3s ease;
-    }
-
-    .book-card-hover:hover .book-card-overlay-btn {
-        opacity: 1;
-        transform: translateY(0);
-    }
-
-    .book-card-overlay-btn:nth-child(1) {
-        transition-delay: 0.1s;
-    }
-
-    .book-card-overlay-btn:nth-child(2) {
-        transition-delay: 0.2s;
-    }
-
-    /* Neden Bizi Tercih Etmelisiniz? Bölümü */
-    .feature-box {
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        transition: background-color 0.3s ease, transform 0.3s ease;
-    }
-
-        .feature-box:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateY(-5px);
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            if (cartItemCountSpan) {
+                cartItemCountSpan.textContent = totalItems;
+                if (totalItems > 0) {
+                    cartItemCountSpan.classList.add('bounce');
+                    setTimeout(() => {
+                        cartItemCountSpan.classList.remove('bounce');
+                    }, 500);
+                }
+            }
         }
 
-    /* Kullanıcı Yorumları */
-    #customerTestimonials .carousel-item {
-        height: auto; /* Yorum içerisine göre otomatik yükseklik */
-        background-color: transparent;
-        filter: none; /* Resim değil, yazı olduğu için filtreye gerek yok */
-    }
+        function saveCart() {
+            localStorage.setItem('kitapDunyasiCart', JSON.stringify(cart));
+            updateCartCount();
+        }
 
-    /* Sepet ikonu için badge konumu */
-    #cart-item-count {
-        font-size: 0.75em; /* Daha küçük bir font */
-        padding: 0.3em 0.6em; /* Daha küçük bir dolgu */
-        line-height: 1;
-        vertical-align: middle;
-    }
-</style>
+        // --- Günün Alıntısı Dinamikleştirme ---
+        const quotes = [
+            {
+                quote: "Okumak, bilginin en derin kuyularından kana kana içmek gibidir. Her yeni sayfa, yeni bir dünyaya açılan kapıdır.",
+                author: "Mevlana"
+            },
+            {
+                quote: "İnsan ruhunun gıdası kitaplardır. Okudukça büyür, gelişimini sürdürür ve hayatı daha derinden anlar.",
+                author: "Fyodor Dostoyevski"
+            },
+            {
+                quote: "Bir kitap, uykusuz bir gecenin ve sonsuz bir düşüncenin ürünüdür.",
+                author: "George Orwell"
+            },
+            {
+                quote: "En iyi arkadaşım, bana okumadığım bir kitabı veren kişidir.",
+                author: "Abraham Lincoln"
+            },
+            {
+                quote: "Kitaplar, hiç kapanmayan pencerelerdir.",
+                author: "Nazım Hikmet"
+            },
+            {
+                quote: "Okumadan geçen bir gün, kaybolmuş bir gündür.",
+                author: "Anonim"
+            }
+        ];
 
-<div id="heroCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-    <div class="carousel-inner">
-        <div class="carousel-item active">
-            <img src="https://via.placeholder.com/1200x400/007bff/ffffff?text=Yeni+Çıkan+Kitaplar" class="d-block w-100" alt="Yeni Çıkan Kitaplar">
-            <div class="carousel-caption d-none d-md-block text-center">
-                <h2 class="display-4 fw-bold">Yeni Çıkanları Keşfedin!</h2>
-                <p class="fs-5">En yeni ve en popüler kitaplar koleksiyonumuzda sizi bekliyor.</p>
-                <a href="/Books" class="btn btn-primary btn-lg mt-3">Şimdi İncele <i class="fas fa-arrow-right ms-2"></i></a>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="https://via.placeholder.com/1200x400/28a745/ffffff?text=Büyük+İndirimler" class="d-block w-100" alt="Büyük İndirimler">
-            <div class="carousel-caption d-none d-md-block text-center">
-                <h2 class="display-4 fw-bold">Kitaplarda Kaçırılmayacak Fırsatlar!</h2>
-                <p class="fs-5">Seçili kitaplarda özel indirimleri kaçırmayın.</p>
-                <a href="/Books" class="btn btn-success btn-lg mt-3">Fırsatları Gör <i class="fas fa-tag ms-2"></i></a>
-            </div>
-        </div>
-        <div class="carousel-item">
-            <img src="https://via.placeholder.com/1200x400/fd7e14/ffffff?text=Popüler+Kategoriler" class="d-block w-100" alt="Popüler Kategoriler">
-            <div class="carousel-caption d-none d-md-block text-center">
-                <h2 class="display-4 fw-bold">Popüler Kategorilerde Gezinin</h2>
-                <p class="fs-5">Roman, Bilim Kurgu, Tarih ve daha fazlası...</p>
-                <a href="/Books" class="btn btn-warning btn-lg mt-3 text-white">Kategorileri Keşfet <i class="fas fa-bookmark ms-2"></i></a>
-            </div>
-        </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Önceki</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Sonraki</span>
-    </button>
-</div>
+        let currentQuoteIndex = 0;
+        const dailyQuoteElement = document.getElementById('daily-quote');
+        const quoteAuthorElement = document.getElementById('quote-author');
+        const newQuoteButton = document.getElementById('new-quote-btn');
 
----
+        function displayQuote() {
+            if (!dailyQuoteElement || !quoteAuthorElement) return;
 
-<div class="container mb-5">
-    <h2 class="text-center mb-4 display-5 fw-bold text-primary">Öne Çıkan Kitaplar</h2>
-    <p class="text-center text-muted mb-5">Sizin için özel olarak seçtiğimiz, en çok ilgi gören kitaplar.</p>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="https://via.placeholder.com/300x450/4682B4/ffffff?text=Deneme+Yanılma" class="card-img-top rounded-top" alt="Deneme Yanılma Kitabı">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-truncate">Deneme Yanılma</h5>
-                    <p class="card-text text-muted mb-2">Yazar: Jane Doe</p>
-                    <span class="badge bg-info text-dark mb-3">Bilim Kurgu</span>
-                    <p class="card-text fs-4 fw-bold text-success">99.99 TL</p>
-                    <div class="mt-auto d-grid gap-2">
-                        <a href="/Books/Details/1" class="btn btn-outline-primary btn-sm">Detayları Gör <i class="fas fa-info-circle ms-1"></i></a>
-                        <button type="button" class="btn btn-success btn-sm"><i class="fas fa-shopping-cart me-1"></i> Sepete Ekle</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="https://via.placeholder.com/300x450/20B2AA/ffffff?text=Gizemli+Yolculuk" class="card-img-top rounded-top" alt="Gizemli Yolculuk Kitabı">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-truncate">Gizemli Yolculuk</h5>
-                    <p class="card-text text-muted mb-2">Yazar: John Smith</p>
-                    <span class="badge bg-secondary mb-3">Macera</span>
-                    <p class="card-text fs-4 fw-bold text-success">75.50 TL</p>
-                    <div class="mt-auto d-grid gap-2">
-                        <a href="/Books/Details/2" class="btn btn-outline-primary btn-sm">Detayları Gör <i class="fas fa-info-circle ms-1"></i></a>
-                        <button type="button" class="btn btn-success btn-sm"><i class="fas fa-shopping-cart me-1"></i> Sepete Ekle</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="https://via.placeholder.com/300x450/DAA520/ffffff?text=Tarihin+Derinlikleri" class="card-img-top rounded-top" alt="Tarihin Derinlikleri Kitabı">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-truncate">Tarihin Derinlikleri</h5>
-                    <p class="card-text text-muted mb-2">Yazar: Ayşe Kaya</p>
-                    <span class="badge bg-dark mb-3">Tarih</span>
-                    <p class="card-text fs-4 fw-bold text-success">120.00 TL</p>
-                    <div class="mt-auto d-grid gap-2">
-                        <a href="/Books/Details/3" class="btn btn-outline-primary btn-sm">Detayları Gör <i class="fas fa-info-circle ms-1"></i></a>
-                        <button type="button" class="btn btn-success btn-sm"><i class="fas fa-shopping-cart me-1"></i> Sepete Ekle</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="https://via.placeholder.com/300x450/B0C4DE/ffffff?text=Hayallerin+Peşinde" class="card-img-top rounded-top" alt="Hayallerin Peşinde Kitabı">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-truncate">Hayallerin Peşinde</h5>
-                    <p class="card-text text-muted mb-2">Yazar: Cem Yılmaz</p>
-                    <span class="badge bg-primary mb-3">Roman</span>
-                    <p class="card-text fs-4 fw-bold text-success">65.75 TL</p>
-                    <div class="mt-auto d-grid gap-2">
-                        <a href="/Books/Details/4" class="btn btn-outline-primary btn-sm">Detayları Gör <i class="fas fa-info-circle ms-1"></i></a>
-                        <button type="button" class="btn btn-success btn-sm"><i class="fas fa-shopping-cart me-1"></i> Sepete Ekle</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+            dailyQuoteElement.classList.add('fade-out');
+            quoteAuthorElement.classList.add('fade-out');
 
----
+            setTimeout(() => {
+                const quote = quotes[currentQuoteIndex];
+                dailyQuoteElement.textContent = `"${quote.quote}"`;
+                quoteAuthorElement.textContent = `- ${quote.author}`;
 
-<div class="container mb-5 py-5 bg-light rounded-3 shadow">
-    <h2 class="text-center mb-5 display-5 fw-bold text-secondary">Okuyucularımız Ne Diyor?</h2>
-    <div id="customerTestimonials" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <p class="lead fst-italic">"Harika bir site! Kitap çeşitliliği mükemmel ve siparişlerim her zaman hızlıca elime ulaşıyor. Kesinlikle favorim!"</p>
-                        <cite class="d-block mt-3 fs-5">- Elif Kara, Memnun Müşteri</cite>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <p class="lead fst-italic">"Aradığım tüm kitapları tek çatı altında bulabildiğim için çok memnunum. Kullanıcı dostu arayüzü sayesinde kolayca alışveriş yapabiliyorum."</p>
-                        <cite class="d-block mt-3 fs-5">- Can Demir, Kitap Kurdu</cite>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8 text-center">
-                        <p class="lead fst-italic">"Kitap Dünyası sayesinde okuma alışkanlığım daha da arttı. Yeni çıkanlar ve indirimler sürekli güncelleniyor, takipteyim!"</p>
-                        <cite class="d-block mt-3 fs-5">- Zeynep Aksoy, Düzenli Okuyucu</cite>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#customerTestimonials" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Önceki</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#customerTestimonials" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Sonraki</span>
-        </button>
-    </div>
-</div>
+                dailyQuoteElement.classList.remove('fade-out');
+                quoteAuthorElement.classList.remove('fade-in-quote');
+                dailyQuoteElement.classList.add('fade-in-quote');
+                quoteAuthorElement.classList.add('fade-in-quote');
 
----
+                setTimeout(() => {
+                    dailyQuoteElement.classList.remove('fade-in-quote');
+                    quoteAuthorElement.classList.remove('fade-in-quote');
+                }, 1000);
+            }, 300);
 
-<div class="container mb-5">
-    <h2 class="text-center mb-4 display-5 fw-bold text-danger">En Çok Satan Kitaplar</h2>
-    <p class="text-center text-muted mb-5">Okuyucularımızın en çok tercih ettiği, mutlaka göz atmanız gerekenler.</p>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="https://via.placeholder.com/300x450/FF6347/ffffff?text=Başarı+Sırları" class="card-img-top rounded-top" alt="Başarı Sırları Kitabı">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-truncate">Başarı Sırları</h5>
-                    <p class="card-text text-muted mb-2">Yazar: Motivasyon Uzmanı</p>
-                    <span class="badge bg-warning text-dark mb-3">Kişisel Gelişim</span>
-                    <p class="card-text fs-4 fw-bold text-success">85.00 TL</p>
-                    <div class="mt-auto d-grid gap-2">
-                        <a href="/Books/Details/5" class="btn btn-outline-primary btn-sm">Detayları Gör <i class="fas fa-info-circle ms-1"></i></a>
-                        <button type="button" class="btn btn-success btn-sm"><i class="fas fa-shopping-cart me-1"></i> Sepete Ekle</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="https://via.placeholder.com/300x450/BDB76B/ffffff?text=Antik+Uygarlıklar" class="card-img-top rounded-top" alt="Antik Uygarlıklar Kitabı">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-truncate">Antik Uygarlıklar Atlası</h5>
-                    <p class="card-text text-muted mb-2">Yazar: Arkeolog Bilge</p>
-                    <span class="badge bg-secondary mb-3">Tarih</span>
-                    <p class="card-text fs-4 fw-bold text-success">110.00 TL</p>
-                    <div class="mt-auto d-grid gap-2">
-                        <a href="/Books/Details/6" class="btn btn-outline-primary btn-sm">Detayları Gör <i class="fas fa-info-circle ms-1"></i></a>
-                        <button type="button" class="btn btn-success btn-sm"><i class="fas fa-shopping-cart me-1"></i> Sepete Ekle</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="https://via.placeholder.com/300x450/8A2BE2/ffffff?text=Fantastik+Dünyalar" class="card-img-top rounded-top" alt="Fantastik Dünyalar Kitabı">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-truncate">Fantastik Dünyalar</h5>
-                    <p class="card-text text-muted mb-2">Yazar: Hayalperest Kalem</p>
-                    <span class="badge bg-primary mb-3">Fantastik</span>
-                    <p class="card-text fs-4 fw-bold text-success">90.00 TL</p>
-                    <div class="mt-auto d-grid gap-2">
-                        <a href="/Books/Details/7" class="btn btn-outline-primary btn-sm">Detayları Gör <i class="fas fa-info-circle ms-1"></i></a>
-                        <button type="button" class="btn btn-success btn-sm"><i class="fas fa-shopping-cart me-1"></i> Sepete Ekle</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 shadow-sm border-0">
-                <img src="https://via.placeholder.com/300x450/40E0D0/ffffff?text=Bilim+Sırları" class="card-img-top rounded-top" alt="Bilim Sırları Kitabı">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title fw-bold text-truncate">Bilim Sırları</h5>
-                    <p class="card-text text-muted mb-2">Yazar: Profesör Meraklı</p>
-                    <span class="badge bg-info text-dark mb-3">Bilim</span>
-                    <p class="card-text fs-4 fw-bold text-success">130.00 TL</p>
-                    <div class="mt-auto d-grid gap-2">
-                        <a href="/Books/Details/8" class="btn btn-outline-primary btn-sm">Detayları Gör <i class="fas fa-info-circle ms-1"></i></a>
-                        <button type="button" class="btn btn-success btn-sm"><i class="fas fa-shopping-cart me-1"></i> Sepete Ekle</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+        }
 
----
+        if (newQuoteButton) {
+            newQuoteButton.addEventListener('click', displayQuote);
+        }
 
-<div class="container mb-5 py-5 bg-dark text-white text-center rounded-3 shadow-lg">
-    <h2 class="mb-4 display-5 fw-bold">Kitap Dünyasından Haberdar Olun!</h2>
-    <p class="lead mb-5">Yeni çıkanlar, özel indirimler ve size özel kampanyalar için e-posta bültenimize abone olun.</p>
-    <div class="row justify-content-center">
-        <div class="col-md-7 col-lg-5">
-            <form class="input-group input-group-lg">
-                <input type="email" class="form-control" placeholder="E-posta adresiniz..." aria-label="E-posta adresi" aria-describedby="button-addon2">
-                <button class="btn btn-primary" type="button" id="button-addon2">Abone Ol <i class="fas fa-paper-plane ms-2"></i></button>
-            </form>
-            <p class="mt-4 fs-6">Herhangi bir sorunuz mu var? <a href="/Home/Contact" class="text-white fw-bold text-decoration-underline">Bize Ulaşın</a> sayfamızı ziyaret edin.</p>
-        </div>
-    </div>
-</div>
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        function observeSectionsForAnimations() {
+            document.querySelectorAll('.dynamic-section, .stats-section, .testimonials-section, .quote-of-the-day-section, .call-to-action-section').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Special animation for hero section elements on load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Check if these elements exist before trying to animate them
+            const heroTitle = document.querySelector('.hero-section h1');
+            const heroSubtitle = document.querySelector('.hero-section p');
+            const ctaButtons = document.querySelector('.cta-buttons');
+
+            if (heroTitle) heroTitle.style.animationPlayState = 'running';
+            if (heroSubtitle) heroSubtitle.style.animationPlayState = 'running';
+            if (ctaButtons) ctaButtons.style.animationPlayState = 'running';
+        });
+
+        // --- Book Filtering by Search Term ---
+        function filterBooks(searchTerm) {
+            const allBookCards = document.querySelectorAll('.book-card');
+            let foundResults = false;
+
+            allBookCards.forEach(card => {
+                const bookTitle = card.querySelector('.book-title').textContent.toLowerCase();
+                const bookAuthor = card.querySelector('.book-author').textContent.toLowerCase();
+
+                if (bookTitle.includes(searchTerm) || bookAuthor.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    foundResults = true;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            const booksSection = document.getElementById('kitaplar');
+            let noResultsMessage = booksSection ? booksSection.querySelector('.no-results') : null;
+            if (!noResultsMessage && booksSection) {
+                noResultsMessage = document.createElement('div');
+                noResultsMessage.classList.add('no-results');
+                noResultsMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i><p>Aradığınız kriterlere uygun kitap bulunamadı.</p>`;
+                booksSection.appendChild(noResultsMessage);
+            }
+
+            if (foundResults) {
+                if (noResultsMessage) noResultsMessage.style.display = 'none';
+            } else {
+                if (noResultsMessage) noResultsMessage.style.display = 'block';
+            }
+        }
+
+        // --- Hesap Yönetimi Aksiyonları ---
+        function setupAccountActions() {
+            const accountActionButtons = document.querySelectorAll('.sidebar button[data-action]');
+            const accountContentSections = document.querySelectorAll('.account-content-section');
+
+            // Function to hide all content sections
+            function hideAllAccountContent() {
+                accountContentSections.forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('active-content'); // Remove active class as well
+                });
+            }
+
+            accountActionButtons.forEach(button => {
+                button.addEventListener('click', function () {
+                    const action = this.dataset.action;
+
+                    // Remove 'active' class from all sidebar buttons
+                    accountActionButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add 'active' class to the clicked button
+                    this.classList.add('active');
+
+                    // Hide all content sections first
+                    hideAllAccountContent();
+
+                    // Show the relevant content section based on the data-action
+                    const targetContentId = `${action}-content`;
+                    const targetContent = document.getElementById(targetContentId);
+                    if (targetContent) {
+                        targetContent.style.display = 'block';
+                        targetContent.classList.add('active-content'); // Add active class for potential animations
+                    } else {
+                        // Fallback for actions without specific content divs, or to show a general message
+                        alert('İçerik yükleniyor: ' + action);
+                    }
+                });
+            });
+
+            // Set default active state and show content for "Siparişlerim" on load
+            // This part runs once on DOMContentLoaded due to how it's called.
+            const defaultButton = document.querySelector('.sidebar button[data-action="siparislerim"]');
+            if (defaultButton) {
+                defaultButton.classList.add('active'); // Ensure the button itself is active
+                const defaultContent = document.getElementById('siparislerim-content');
+                if (defaultContent) {
+                    defaultContent.style.display = 'block'; // Make the default content visible
+                    defaultContent.classList.add('active-content');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

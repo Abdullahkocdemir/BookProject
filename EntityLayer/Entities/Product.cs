@@ -31,7 +31,23 @@ namespace EntityLayer.Entities
         [Column(TypeName = "VarChar")]
         [StringLength(200)]
         public string ImageURl { get; set; } = string.Empty;
+
+        // Oluşturulma tarihi
+        [Required]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        // Güncellenme tarihi (opsiyonel)
+        public DateTime? UpdatedDate { get; set; }
+
+
+        public bool Status { get; set; } = true;
+
         public bool PopulerProduct { get; set; }
+
+
+        [Required]
+        [Column(TypeName = "Decimal(18,2)")]
+        public decimal Price { get; set; }
 
         // Kategori Id'si, zorunlu, foreign key olarak tanımlanır
         [Required]
