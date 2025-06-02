@@ -1,16 +1,20 @@
 using Microsoft.Extensions.Options;
 using NuGet.Configuration;
+using WebUI.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+// ApiSettings'i appsettings.json'dan yapýlandýrýn
+builder.Services.Configure<ApiSettings>(builder.Configuration.GetSection("ApiSettings"));
 
-builder.Services.AddHttpClient("MyApiClient", (sp, client) =>
+builder.Services.AddHttpClient("ApiClient", (sp, client) =>
 {
     var apiSettings = sp.GetRequiredService<IOptions<ApiSettings>>().Value;
-    client.BaseAddress = new Uri(apiSettings.BaseUrl!);
-});
+    // BaseUrl'in null olmadýðýndan emin olmak için null kontrolü ekleyin
+    client.BaseAddress = new Uri(apiSettings.BaseUrl ?? throw new InvalidOperationException("ApiSettings.BaseUrl yapýlandýrýlmadý."));
+}); ;
 
 var app = builder.Build();
 

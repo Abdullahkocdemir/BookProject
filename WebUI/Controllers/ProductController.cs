@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DTOLayer.WebUIDTO.ProductDTO;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using X.PagedList;
+using X.PagedList.Extensions;
 
 namespace WebUI.Controllers
 {
@@ -8,11 +12,20 @@ namespace WebUI.Controllers
 
         public ProductController(IHttpClientFactory httpClientFactory)
         {
-            _httpClient = httpClientFactory.CreateClient("MyApiClient");
+            _httpClient = httpClientFactory.CreateClient("ApiClient");
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var response = await _httpClient.GetAsync("api/Products");
+            if (response.IsSuccessStatusCode)
+            {
+                var jsonData = await response.Content.ReadAsStringAsync();
+                var allProducts = JsonConvert.DeserializeObject<List<ResultProductDTO>>(jsonData);
+                return View(allProducts);  // tüm listeyi gönderiyoruz
+            }
+            return View(new List<ResultProductDTO>());
         }
+
     }
 }

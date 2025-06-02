@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
-    [DbContext(typeof(ETicaretDb))]
+    [DbContext(typeof(BookContext))]
     [Migration("20250531123858_Mig_add_Basket")]
     partial class Mig_add_Basket
     {

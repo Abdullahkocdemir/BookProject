@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DataAccessLayer.Migrations
 {
-    [DbContext(typeof(ETicaretDb))]
+    [DbContext(typeof(BookContext))]
     partial class ETicaretDbModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

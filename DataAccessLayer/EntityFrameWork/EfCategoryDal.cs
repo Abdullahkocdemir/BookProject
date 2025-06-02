@@ -12,7 +12,7 @@ namespace DataAccessLayer.EntityFrameWork
 {
     public class EfCategoryDal : GenericRepository<Category>, ICategoryDal
     {
-        public EfCategoryDal(ETicaretDb context) : base(context)
+        public EfCategoryDal(BookContext context) : base(context)
         {
         }
     }

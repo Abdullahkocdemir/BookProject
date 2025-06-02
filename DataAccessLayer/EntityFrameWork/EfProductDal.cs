@@ -13,9 +13,9 @@ namespace DataAccessLayer.EntityFrameWork
 {
     public class EfProductDal : GenericRepository<Product>, IProductDal
     {
-        private readonly ETicaretDb _context;
+        private readonly BookContext _context;
 
-        public EfProductDal(ETicaretDb context) : base(context)
+        public EfProductDal(BookContext context) : base(context)
         {
             _context = context;
         }

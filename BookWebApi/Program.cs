@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("PostgreSqlConnection");
 
 // DbContext ve Identity servislerini ekle
-builder.Services.AddDbContext<ETicaretDb>(options =>
+builder.Services.AddDbContext<BookContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
@@ -43,7 +43,7 @@ builder.Services.AddIdentity<AppUser, AppRole>(options => // AppRole kullandýðýn
     options.SignIn.RequireConfirmedEmail = false; // E-posta onayýnýn giriþ için zorunlu olup olmadýðýný belirler
     options.SignIn.RequireConfirmedAccount = false; // Hesap onayýnýn giriþ için zorunlu olup olmadýðýný belirler
 })
-.AddEntityFrameworkStores<ETicaretDb>() // Identity'nin veritabaný deposunu belirtir
+.AddEntityFrameworkStores<BookContext>() // Identity'nin veritabaný deposunu belirtir
 .AddDefaultTokenProviders(); // Þifre sýfýrlama, e-posta onayý vb. için token saðlayýcýlarýný ekler
 
 // Identity'nin Cookie ayarlarýný API'lerde genel olarak kurcalamanýza gerek yok,

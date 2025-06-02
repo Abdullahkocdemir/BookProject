@@ -19,14 +19,15 @@
     --glow: 0 0 50px rgba(99, 102, 241, 0.5);
 }
 
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     min-height: 100vh;
     color: white;
     overflow-x: hidden;
-    display: flex; /* Added for sticky footer in the first combined file */
-    flex-direction: column; /* Added for sticky footer in the first combined file */
+    display: flex;
+    flex-direction: column;
 }
 
     /* Animated Background */
@@ -202,13 +203,13 @@ nav {
 
 /* Main Content Styling */
 main {
-    flex-grow: 1; /* Allows main to expand and push footer down in cart page */
-    margin-top: 100px; /* Adjust based on fixed header height */
-    padding: 0; /* Removed overall padding from original index.html style */
-    background: transparent; /* Main content background from body gradient for cart page */
+    flex-grow: 1;
+    margin-top: 100px;
+    padding: 0;
+    background: transparent;
 }
 
-/* Hero Section (from index.html) */
+/* Hero Section */
 .hero-section {
     text-align: center;
     padding: 4rem 2rem;
@@ -240,7 +241,7 @@ main {
     animation: slideInUp 1s ease 0.4s both;
 }
 
-/* General Button (used for CTA in index.html) */
+/* General Button */
 .btn {
     padding: 1rem 2rem;
     border: none;
@@ -281,7 +282,7 @@ main {
     justify-content: center;
     margin-bottom: 3rem;
     animation: slideInUp 1s ease 0.4s both;
-    padding: 0 2rem; /* Ensure it respects container padding */
+    padding: 0 2rem;
 }
 
 .search-bar {
@@ -348,20 +349,20 @@ main {
     animation: slideInDown 1s ease;
 }
 
-/* Shared dynamic section styling (for cart and index sections) */
+/* Shared dynamic section styling */
 .dynamic-section,
 .cart-section,
 .stats-section,
 .testimonials-section,
 .quote-of-the-day-section,
 .call-to-action-section {
-    background: rgba(255, 255, 255, 0.05); /* Lighter background for sections */
+    background: rgba(255, 255, 255, 0.05);
     border-radius: 25px;
-    margin: 0 auto 4rem; /* Adjusted margin to center and add bottom space */
+    margin: 0 auto 4rem;
     padding: 3rem 2rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: var(--shadow);
-    animation: fadeIn 1s ease; /* Add animation */
+    animation: fadeIn 1s ease;
 }
 
 /* Category Grid */
@@ -369,7 +370,7 @@ main {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
-    padding: 0; /* Removed padding here, use section padding */
+    padding: 0;
 }
 
 .category-card {
@@ -394,7 +395,7 @@ main {
 .category-icon {
     font-size: 3rem;
     margin-bottom: 1rem;
-    color: var(--accent); /* Changed icon color */
+    color: var(--accent);
 }
 
 .category-card h3 {
@@ -505,7 +506,7 @@ main {
     gap: 1rem;
 }
 
-.btn-book-action { /* Specific for book cards */
+.btn-book-action {
     padding: 0.75rem 1.5rem;
     border-radius: 50px;
     border: none;
@@ -540,7 +541,7 @@ main {
 
 /* Cart Page Specific Styles */
 .cart-section {
-    padding: 3rem 2rem; /* Already set by the shared class */
+    padding: 3rem 2rem;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 25px;
     margin: 0 auto 4rem;
@@ -749,13 +750,12 @@ main {
     box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
 }
 
-/* No Results (kept for potential future dynamic use, but hidden by default) */
+/* No Results */
 .no-results {
     text-align: center;
     padding: 4rem 2rem;
     color: rgba(255, 255, 255, 0.7);
     font-size: 1.2rem;
-    /* display: none; */ /* Keep commented if you want it visible by default */
 }
 
     .no-results i {
@@ -766,7 +766,6 @@ main {
 
 /* Stats Section */
 .stats-section {
-    /* Styles are mostly inherited from dynamic-section now */
     text-align: center;
 }
 
@@ -795,7 +794,6 @@ main {
 
 /* Testimonials Section */
 .testimonials-section {
-    /* Styles are mostly inherited from dynamic-section now */
     padding: 3rem 0;
 }
 
@@ -849,14 +847,13 @@ main {
 }
 
 .testimonial-rating {
-    color: #ffc107; /* Gold star color */
+    color: #ffc107;
     margin-bottom: 0.5rem;
     text-align: left;
 }
 
 /* Quote of the Day Section */
 .quote-of-the-day-section {
-    /* Styles are mostly inherited from dynamic-section now */
     text-align: center;
 }
 
@@ -888,7 +885,6 @@ main {
     position: relative;
     padding: 1rem;
     border-left: 5px solid var(--secondary);
-    /* Animation applied by JS class */
 }
 
 .quote-author {
@@ -930,7 +926,7 @@ footer {
     background: var(--dark);
     color: white;
     padding: 3rem 2rem 1rem;
-    margin-top: 3rem; /* Adjusted for consistency */
+    margin-top: 3rem;
 }
 
 .footer-content {
@@ -993,15 +989,17 @@ footer {
     font-size: 0.9rem;
 }
 
-/* Content Layout (from second provided style) */
-.content-layout {
+/* Content Layout (with sidebar) */
+.content-wrapper {
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 3rem;
-    animation: fadeIn 1s ease 0.6s both;
+    max-width: 1400px;
+    margin: 0 auto 4rem;
+    padding: 0 2rem;
 }
 
-/* Sidebar (from second provided style) */
+/* Sidebar */
 .sidebar {
     background: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(20px);
@@ -1011,6 +1009,7 @@ footer {
     border: 1px solid rgba(255, 255, 255, 0.2);
     position: sticky;
     top: 120px;
+    animation: fadeIn 1s ease 0.6s both;
 }
 
     .sidebar h3 {
@@ -1041,6 +1040,7 @@ footer {
     text-align: left;
     position: relative;
     overflow: hidden;
+    width: 100%;
 }
 
     .category-btn::before {
@@ -1172,6 +1172,200 @@ footer {
     }
 }
 
+/* Fade In for Quote */
+@keyframes fade-in-quote {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
+.fade-in-quote {
+    animation: fade-in-quote 0.7s ease-in-out forwards;
+}
+
+/* Main Content Area for Account */
+.main-content-area {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 25px;
+    padding: 3rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: var(--shadow);
+    animation: fadeIn 1s ease;
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Account Content Sections */
+.account-content-section {
+    width: 100%;
+    height: 100%;
+    display: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+    .account-content-section.active-content {
+        display: block;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+/* Table Styles */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 2rem;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
+    color: white;
+}
+
+    .data-table th,
+    .data-table td {
+        padding: 1.2rem 1.5rem;
+        text-align: left;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .data-table th {
+        background: rgba(255, 255, 255, 0.15);
+        font-weight: 700;
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--light);
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .data-table tbody tr {
+        transition: background 0.3s ease;
+    }
+
+        .data-table tbody tr:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .data-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+/* Status Badges */
+.status-badge {
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-block;
+    color: var(--dark);
+}
+
+    .status-badge.delivered {
+        background-color: var(--success);
+    }
+
+    .status-badge.processing {
+        background-color: var(--accent);
+    }
+
+    .status-badge.shipped {
+        background-color: var(--primary);
+        color: white;
+    }
+
+    .status-badge.cancelled {
+        background-color: var(--secondary);
+        color: white;
+    }
+
+/* Table Action Buttons */
+.table-action-btn {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+    .table-action-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    }
+
+.icon-action-btn {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.view-details-btn {
+    background-color: #007bff;
+}
+
+.edit-order-btn {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.delete-order-btn {
+    background-color: #dc3545;
+}
+
+.view-details-btn:hover {
+    background-color: #0056b3;
+}
+
+.edit-order-btn:hover {
+    background-color: #e0a800;
+}
+
+.delete-order-btn:hover {
+    background-color: #c82333;
+}
+
+.empty-message {
+    text-align: center;
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 3rem 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
 /* Responsive */
 @media (max-width: 1024px) {
     .nav-menu {
@@ -1195,7 +1389,7 @@ footer {
         font-size: 3rem;
     }
 
-    .content-layout {
+    .content-wrapper {
         grid-template-columns: 250px 1fr;
         gap: 2rem;
     }
@@ -1262,7 +1456,7 @@ footer {
         grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
-    .content-layout {
+    .content-wrapper {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
@@ -1327,6 +1521,30 @@ footer {
         padding: 1rem 2.5rem;
         font-size: 1rem;
     }
+    /* Responsive adjustments for table */
+    .main-content-area {
+        padding: 2rem 1.5rem;
+    }
+
+    .table-responsive {
+        border-radius: 10px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 0.8rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .status-badge {
+        font-size: 0.75rem;
+        padding: 0.3rem 0.6rem;
+    }
+
+    .table-action-btn {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.8rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1335,7 +1553,7 @@ footer {
     }
 
     main {
-        padding: 2rem 1rem; /* Adjust main padding for smaller screens if needed */
+        padding: 2rem 1rem;
     }
 
     .hero-title {
@@ -1385,5 +1603,80 @@ footer {
     .empty-cart-message {
         font-size: 1.1rem;
         padding: 3rem 1rem;
+    }
+
+    .main-content-area {
+        padding: 1.5rem 1rem;
+        border-radius: 15px;
+    }
+
+    .data-table th,
+    .data-table td {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+    }
+    /* Force table to behave more like blocks on very small screens for readability */
+    .data-table thead {
+        display: none;
+    }
+
+    .data-table,
+    .data-table tbody,
+    .data-table tr,
+    .data-table td {
+        display: block;
+        width: 100%;
+    }
+
+        .data-table tr {
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .data-table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+        }
+
+            .data-table td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 10px;
+                width: 45%;
+                padding-right: 10px;
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: rgba(255, 255, 255, 0.7);
+            }
+        /* Assign data-label to each td for responsive table headers */
+        .data-table tbody td:nth-of-type(1)::before {
+            content: "Sipariş Kodu:";
+        }
+
+        .data-table tbody td:nth-of-type(2)::before {
+            content: "Tarih:";
+        }
+
+        .data-table tbody td:nth-of-type(3)::before {
+            content: "Toplam Tutar:";
+        }
+
+        .data-table tbody td:nth-of-type(4)::before {
+            content: "Durum:";
+        }
+
+        .data-table tbody td:nth-of-type(5)::before {
+            content: "Detaylar:";
+        }
+
+    .table-action-btn {
+        width: 100%;
+        margin-top: 10px;
     }
 }

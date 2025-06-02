@@ -12,9 +12,9 @@ namespace WebApi.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ETicaretDb _context;
+        private readonly BookContext _context;
 
-        public CategoriesController(ETicaretDb context)
+        public CategoriesController(BookContext context)
         {
             _context = context;
         }
